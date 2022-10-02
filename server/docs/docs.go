@@ -885,7 +885,6 @@ const docTemplate = `{
                 "tags": [
                     "AutoCode"
                 ],
-<<<<<<< HEAD
                 "summary": "创建插件模板",
                 "parameters": [
                     {
@@ -896,25 +895,11 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/system.SysAutoCode"
                         }
-=======
-                "summary": "安装插件",
-                "parameters": [
-                    {
-                        "type": "file",
-                        "description": "this is a test file",
-                        "name": "plug",
-                        "in": "formData",
-                        "required": true
->>>>>>> 8ec7bd78422c25de7c42880018b0f81df8d9e5e0
                     }
                 ],
                 "responses": {
                     "200": {
-<<<<<<< HEAD
                         "description": "创建插件模板成功",
-=======
-                        "description": "安装插件成功",
->>>>>>> 8ec7bd78422c25de7c42880018b0f81df8d9e5e0
                         "schema": {
                             "allOf": [
                                 {
