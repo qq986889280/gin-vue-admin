@@ -869,7 +869,7 @@
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
@@ -877,6 +877,7 @@
                 "tags": [
                     "AutoCode"
                 ],
+<<<<<<< HEAD
                 "summary": "创建插件模板",
                 "parameters": [
                     {
@@ -887,11 +888,25 @@
                         "schema": {
                             "$ref": "#/definitions/system.SysAutoCode"
                         }
+=======
+                "summary": "安装插件",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "this is a test file",
+                        "name": "plug",
+                        "in": "formData",
+                        "required": true
+>>>>>>> 8ec7bd78422c25de7c42880018b0f81df8d9e5e0
                     }
                 ],
                 "responses": {
                     "200": {
+<<<<<<< HEAD
                         "description": "创建插件模板成功",
+=======
+                        "description": "安装插件成功",
+>>>>>>> 8ec7bd78422c25de7c42880018b0f81df8d9e5e0
                         "schema": {
                             "allOf": [
                                 {
@@ -901,8 +916,10 @@
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "type": "object",
-                                            "additionalProperties": true
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
                                         },
                                         "msg": {
                                             "type": "string"
@@ -4334,6 +4351,7 @@
             }
         },
         "/user/admin_register": {
+<<<<<<< HEAD
             "post": {
                 "produces": [
                     "application/json"
@@ -4350,6 +4368,57 @@
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/request.Register"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "用户注册账号,返回包括用户信息",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/response.SysUserResponse"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/user/changePassword": {
+=======
+>>>>>>> 8ec7bd78422c25de7c42880018b0f81df8d9e5e0
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysUser"
+                ],
+                "summary": "用户注册账号",
+                "parameters": [
+                    {
+                        "description": "用户名, 昵称, 密码, 角色ID",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+<<<<<<< HEAD
+                            "$ref": "#/definitions/request.ChangePasswordReq"
+=======
+                            "$ref": "#/definitions/request.Register"
+>>>>>>> 8ec7bd78422c25de7c42880018b0f81df8d9e5e0
                         }
                     }
                 ],
@@ -4518,6 +4587,8 @@
                 }
             }
         },
+<<<<<<< HEAD
+=======
         "/user/getUserList": {
             "post": {
                 "security": [
@@ -4571,6 +4642,7 @@
                 }
             }
         },
+>>>>>>> 8ec7bd78422c25de7c42880018b0f81df8d9e5e0
         "/user/resetPassword": {
             "post": {
                 "security": [
@@ -6105,6 +6177,10 @@
                 },
                 "autoCreateApiToSql": {
                     "description": "是否自动创建api",
+                    "type": "boolean"
+                },
+                "autoCreateResource": {
+                    "description": "是否自动创建资源标识",
                     "type": "boolean"
                 },
                 "autoMoveFile": {

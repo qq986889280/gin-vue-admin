@@ -918,6 +918,9 @@ definitions:
       autoCreateApiToSql:
         description: 是否自动创建api
         type: boolean
+      autoCreateResource:
+        description: 是否自动创建资源标识
+        type: boolean
       autoMoveFile:
         description: 是否自动移动文件
         type: boolean
@@ -1873,6 +1876,7 @@ paths:
   /autoCode/createPlug:
     post:
       consumes:
+<<<<<<< HEAD
       - application/json
       parameters:
       - description: 创建插件模板
@@ -1881,24 +1885,42 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/system.SysAutoCode'
+=======
+      - multipart/form-data
+      parameters:
+      - description: this is a test file
+        in: formData
+        name: plug
+        required: true
+        type: file
+>>>>>>> 8ec7bd78422c25de7c42880018b0f81df8d9e5e0
       produces:
       - application/json
       responses:
         "200":
+<<<<<<< HEAD
           description: 创建插件模板成功
+=======
+          description: 安装插件成功
+>>>>>>> 8ec7bd78422c25de7c42880018b0f81df8d9e5e0
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  additionalProperties: true
-                  type: object
+                  items:
+                    type: object
+                  type: array
                 msg:
                   type: string
               type: object
       security:
       - ApiKeyAuth: []
+<<<<<<< HEAD
       summary: 创建插件模板
+=======
+      summary: 安装插件
+>>>>>>> 8ec7bd78422c25de7c42880018b0f81df8d9e5e0
       tags:
       - AutoCode
   /autoCode/createTemp:

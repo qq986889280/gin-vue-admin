@@ -877,7 +877,7 @@ const docTemplate = `{
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
@@ -885,6 +885,7 @@ const docTemplate = `{
                 "tags": [
                     "AutoCode"
                 ],
+<<<<<<< HEAD
                 "summary": "创建插件模板",
                 "parameters": [
                     {
@@ -895,11 +896,25 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/system.SysAutoCode"
                         }
+=======
+                "summary": "安装插件",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "this is a test file",
+                        "name": "plug",
+                        "in": "formData",
+                        "required": true
+>>>>>>> 8ec7bd78422c25de7c42880018b0f81df8d9e5e0
                     }
                 ],
                 "responses": {
                     "200": {
+<<<<<<< HEAD
                         "description": "创建插件模板成功",
+=======
+                        "description": "安装插件成功",
+>>>>>>> 8ec7bd78422c25de7c42880018b0f81df8d9e5e0
                         "schema": {
                             "allOf": [
                                 {
@@ -909,8 +924,10 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "type": "object",
-                                            "additionalProperties": true
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
                                         },
                                         "msg": {
                                             "type": "string"
@@ -6113,6 +6130,10 @@ const docTemplate = `{
                 },
                 "autoCreateApiToSql": {
                     "description": "是否自动创建api",
+                    "type": "boolean"
+                },
+                "autoCreateResource": {
+                    "description": "是否自动创建资源标识",
                     "type": "boolean"
                 },
                 "autoMoveFile": {
