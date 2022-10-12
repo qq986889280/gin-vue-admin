@@ -1876,19 +1876,18 @@ paths:
   /autoCode/createPlug:
     post:
       consumes:
-      - application/json
+      - multipart/form-data
       parameters:
-      - description: 创建插件模板
-        in: body
-        name: data
+      - description: this is a test file
+        in: formData
+        name: plug
         required: true
-        schema:
-          $ref: '#/definitions/system.SysAutoCode'
+        type: file
       produces:
       - application/json
       responses:
         "200":
-          description: 创建插件模板成功
+          description: 安装插件成功
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
@@ -1902,7 +1901,7 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 创建插件模板
+      summary: 安装插件
       tags:
       - AutoCode
   /autoCode/createTemp:

@@ -885,21 +885,19 @@ const docTemplate = `{
                 "tags": [
                     "AutoCode"
                 ],
-                "summary": "创建插件模板",
+                "summary": "安装插件",
                 "parameters": [
                     {
-                        "description": "创建插件模板",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/system.SysAutoCode"
-                        }
+                        "type": "file",
+                        "description": "this is a test file",
+                        "name": "plug",
+                        "in": "formData",
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "创建插件模板成功",
+                        "description": "安装插件成功",
                         "schema": {
                             "allOf": [
                                 {

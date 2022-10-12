@@ -68,8 +68,8 @@ email:
   port: 465
   from: xxx@163.com
   host: smtp.163.com
-  is-ssl: true
-  secret: xxx
+  is-ssl: false
+  secret: "588"
   nickname: test
 excel:
   dir: ./resource/excel/
@@ -80,7 +80,7 @@ hua-wei-obs:
   access-key: you-access-key
   secret-key: you-secret-key
 jwt:
-  signing-key: bcc131d8-a592-4815-8d8f-abe6d9db65ce
+  signing-key: 4a685742-d3a2-4200-a8d0-aaafa018e52a
   expires-time: 7d
   buffer-time: 1d
   issuer: qmPlus
@@ -88,12 +88,12 @@ local:
   path: uploads/file
   store-path: uploads/file
 mysql:
-  path: 127.0.0.1
+  path: 154.204.57.149
   port: "3306"
   config: charset=utf8mb4&parseTime=True&loc=Local
-  db-name: godb
-  username: root
-  password: q12345678
+  db-name: goadmin
+  username: goadmin
+  password: kaJttR3Et6k2NwjD
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: error
@@ -123,7 +123,7 @@ redis:
   password: ""
 system:
   env: public
-  addr: 8888
+  addr: 39666
   db-type: mysql
   oss-type: local
   use-multipoint: false
