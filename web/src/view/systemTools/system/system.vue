@@ -120,6 +120,17 @@
             <el-button @click="email">测试邮件</el-button>
           </el-form-item>
         </el-collapse-item>
+        <el-collapse-item title="短信配置" name="6">
+          <el-form-item label="短信账号">
+            <el-input v-model="config.baosms.Username" />
+          </el-form-item>
+          <el-form-item label="短信密码">
+            <el-input v-model="config.baosms.Password" />
+          </el-form-item>
+          <el-form-item label="签名">
+            <el-input v-model="config.baosms.Sign" />
+          </el-form-item>
+        </el-collapse-item>
         <el-collapse-item title="验证码配置" name="7">
           <el-form-item label="字符长度">
             <el-input v-model.number="config.captcha['key-long']" />

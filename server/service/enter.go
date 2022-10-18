@@ -3,6 +3,7 @@ package service
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/service/charge"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/example"
+	"github.com/flipped-aurora/gin-vue-admin/server/service/shang"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
 )
 
@@ -10,6 +11,7 @@ type ServiceGroup struct {
 	SystemServiceGroup  system.ServiceGroup
 	ExampleServiceGroup example.ServiceGroup
 	ChargeServiceGroup  charge.ServiceGroup
+	ShangServiceGroup   shang.ServiceGroup
 }
 
 var ServiceGroupApp = new(ServiceGroup)

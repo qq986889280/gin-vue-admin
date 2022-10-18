@@ -10,6 +10,7 @@ type RouterGroup struct {
 	System  system.RouterGroup
 	Example example.RouterGroup
 	Charge  charge.RouterGroup
+	Shang   charge.RouterGroup
 }
 
 var RouterGroupApp = new(RouterGroup)

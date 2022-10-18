@@ -30,6 +30,10 @@ aws-s3:
   secret-key: your-secret-key
   base-url: https://gin.vue.admin
   path-prefix: github.com/flipped-aurora/gin-vue-admin/server
+baosms:
+  username: xhxc
+  password: 670dacedf04a5c0866b044b0b299d93a
+  sign: 【新华信诚】
 captcha:
   key-long: 6
   img-width: 240

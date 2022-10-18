@@ -26,4 +26,6 @@ type Server struct {
 
 	// 跨域配置
 	Cors CORS `mapstructure:"cors" json:"cors" yaml:"cors"`
+
+	BaoSms BaoSms `mapstructure:"baosms" json:"baosms" yaml:"baosms"`
 }
