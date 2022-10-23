@@ -1,6 +1,8 @@
 package charge
 
 import (
+	"strconv"
+
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/charge"
 	chargeReq "github.com/flipped-aurora/gin-vue-admin/server/model/charge/request"
@@ -32,6 +34,10 @@ func (faShangApi *FaShangApi) CreateFaShang(c *gin.Context) {
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
+	}
+	uid, _ := strconv.Atoi(c.Request.Header.Get("x-user-id"))
+	if uid > 1 {
+		faShang.ShangId = uid
 	}
 	verify := utils.Rules{
 		"Net": {utils.NotEmpty()},
@@ -112,6 +118,10 @@ func (faShangApi *FaShangApi) UpdateFaShang(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	uid, _ := strconv.Atoi(c.Request.Header.Get("x-user-id"))
+	if uid > 1 {
+		faShang.ShangId = uid
+	}
 	verify := utils.Rules{
 		"Net": {utils.NotEmpty()},
 	}
@@ -166,6 +176,10 @@ func (faShangApi *FaShangApi) GetFaShangList(c *gin.Context) {
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
+	}
+	uid, _ := strconv.Atoi(c.Request.Header.Get("x-user-id"))
+	if uid > 1 {
+		pageInfo.ShangId = uid
 	}
 	if list, total, err := faShangService.GetFaShangInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))

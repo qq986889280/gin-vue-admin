@@ -60,6 +60,9 @@ func (faShangService *FaShangService) GetFaShangInfoList(info chargeReq.FaShangS
 	if info.Net != nil {
 		db = db.Where("net = ?", info.Net)
 	}
+	if info.ShangId > 1 {
+		db = db.Where("shang_id = ?", info.ShangId)
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return

@@ -1,17 +1,28 @@
 package model
-type Request struct {
-        From string // from 
-        To string // to 
-        Coin string // coin 
-        Number string // 金额 
-        Txid string // hash 
-        Shang_id string // 商家id 
-        Order_sn string // 订单号 
-        Contract string // 合约地址 
-        Bind string // bind 
+
+type RequestPayCheck struct {
+	ShangId int    `json:"shangId" form:"shangId" gorm:"column:shang_id;comment:商户id;size:10;"`
+	OrderSn string `json:"orderSn" form:"orderSn" gorm:"column:order_sn;comment:app订单号;size:255;"`
 }
 
 type Response struct {
-        Ptype string // ptype 
-        Contractaddr string // 合约地址 
+	Ptype        string // ptype
+	Contractaddr string // 合约地址
+}
+
+type ResponseInfo struct {
+	ShangId      int
+	Ptype        string
+	Contractaddr string
+	To           string
+	Net          int
+}
+
+type NoticeResponse struct {
+	OrderSn  string
+	Number   float64
+	From     string
+	To       string
+	Contract string
+	Sign     string
 }

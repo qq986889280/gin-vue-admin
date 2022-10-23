@@ -1,6 +1,8 @@
 package charge
 
 import (
+	"strconv"
+
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/charge"
 	chargeReq "github.com/flipped-aurora/gin-vue-admin/server/model/charge/request"
@@ -31,6 +33,10 @@ func (faChargeApi *FaChargeApi) CreateFaCharge(c *gin.Context) {
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
+	}
+	uid, _ := strconv.Atoi(c.Request.Header.Get("x-user-id"))
+	if uid > 1 {
+		faCharge.ShangId = uid
 	}
 	if err := faChargeService.CreateFaCharge(faCharge); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
@@ -104,6 +110,10 @@ func (faChargeApi *FaChargeApi) UpdateFaCharge(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	uid, _ := strconv.Atoi(c.Request.Header.Get("x-user-id"))
+	if uid > 1 {
+		faCharge.ShangId = uid
+	}
 	if err := faChargeService.UpdateFaCharge(faCharge); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
@@ -151,6 +161,10 @@ func (faChargeApi *FaChargeApi) GetFaChargeList(c *gin.Context) {
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
+	}
+	uid, _ := strconv.Atoi(c.Request.Header.Get("x-user-id"))
+	if uid > 1 {
+		pageInfo.ShangId = uid
 	}
 	if list, total, err := faChargeService.GetFaChargeInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))

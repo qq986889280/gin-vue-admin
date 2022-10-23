@@ -5,6 +5,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/charge"
 	chargeReq "github.com/flipped-aurora/gin-vue-admin/server/model/charge/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"gorm.io/gorm/clause"
 )
 
 type FaChargeService struct {
@@ -51,16 +52,22 @@ func (faChargeService *FaChargeService) GetFaChargeInfoList(info chargeReq.FaCha
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&charge.FaCharge{})
+	db := global.GVA_DB.Model(&charge.FaCharge{}).Preload(clause.Associations)
 	var faCharges []charge.FaCharge
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
+	if info.ShangId > 0 {
+		db = db.Where("shang_id = ?", info.ShangId)
+	}
+	if info.OrderSn != "" {
+		db = db.Where("order_sn = ?", info.OrderSn)
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
-	err = db.Limit(limit).Offset(offset).Find(&faCharges).Error
+	err = db.Limit(limit).Offset(offset).Order("id DESC").Find(&faCharges).Error
 	return faCharges, total, err
 }

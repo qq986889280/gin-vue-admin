@@ -8,7 +8,8 @@
             :src="$GIN_VUE_ADMIN.appLogo"
             alt
           >
-          <p class="login_panel_form_title_p">{{ $GIN_VUE_ADMIN.appName }}</p>
+          <!-- <p class="login_panel_form_title_p">{{ $GIN_VUE_ADMIN.appName }}</p> -->
+          <p class="login_panel_form_title_p">易支付</p>
         </div>
         <el-form
           ref="loginForm"

@@ -2,6 +2,7 @@ package response
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,6 +11,7 @@ type Response struct {
 	Code int         `json:"code"`
 	Data interface{} `json:"data"`
 	Msg  string      `json:"msg"`
+	Time int64       `json:"time"`
 }
 
 const (
@@ -23,6 +25,7 @@ func Result(code int, data interface{}, msg string, c *gin.Context) {
 		code,
 		data,
 		msg,
+		time.Now().Unix(),
 	})
 }
 

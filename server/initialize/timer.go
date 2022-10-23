@@ -29,5 +29,16 @@ func Timer() {
 				}
 			}(global.GVA_CONFIG.Timer.Detail[i])
 		}
+
+		// var option []cron.Option
+		// if global.GVA_CONFIG.Timer.WithSeconds {
+		// 	option = append(option, cron.WithSeconds())
+		// }
+		// _, err := global.GVA_Timer.AddTaskByFunc("TestTimer", "@every 1s", func() {
+		// 	fmt.Println(time.Now())
+		// }, option...)
+		// if err != nil {
+		// 	fmt.Println("add timer error:", err)
+		// }
 	}
 }

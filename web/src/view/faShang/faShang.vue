@@ -47,8 +47,8 @@
         <el-table-column align="left" label="商户id" prop="shangId" width="120" />
         <el-table-column align="left" label="logo" prop="image" width="120" />
         <el-table-column align="left" label="支付方式" prop="ptype" width="120" />
-        <el-table-column align="left" label="合约地址" prop="contractaddr" width="120" />
-        <el-table-column align="left" label="收款地址" prop="to" width="120" />
+        <el-table-column align="left" label="合约地址" prop="contractaddr" width="320" />
+        <el-table-column align="left" label="收款地址" prop="to" width="320" />
         <el-table-column align="left" label="回调url" prop="url" width="120" />
         <el-table-column align="left" label="区块链" prop="net" width="120">
           <template #default="scope">
@@ -76,12 +76,12 @@
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form ref="elFormRef" :model="formData" label-position="right" :rules="rule" label-width="80px">
-        <el-form-item label="商户id:" prop="shangId">
+        <el-form-item v-show="userStore.userInfo.ID<2" label="商户id:" prop="shangId">
           <el-input v-model.number="formData.shangId" :clearable="true" placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="logo:" prop="image">
-          <el-input v-model="formData.image" :clearable="true" placeholder="请输入1" />
-        </el-form-item>
+        <!-- <el-form-item label="logo:" prop="image">
+          <el-input v-model="formData.image" :clearable="true" placeholder="请输入" />
+        </el-form-item> -->
 
         <el-form-item label="支付方式:" prop="ptype">
           <el-input v-model="formData.ptype" :clearable="true" placeholder="请输入" />
@@ -126,12 +126,13 @@ import {
   findFaShang,
   getFaShangList
 } from '@/api/faShang'
-
+import { useUserStore } from '@/pinia/modules/user'
 // 全量引入格式化工具 请按需保留
 import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref, reactive } from 'vue'
-
+const userStore = useUserStore()
+// console.log(userStore.userInfo.ID)
 // 自动化生成的字典（可能为空）以及字段
 const netOptions = ref([])
 const formData = ref({
