@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"net"
-
 	"go.uber.org/zap"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/core"
@@ -24,23 +21,23 @@ import (
 // @name                        x-token
 // @BasePath                    /
 func main() {
-	var startcat bool = false
-	addrs, err := net.InterfaceAddrs()
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	for _, address := range addrs {
-		// 检查ip地址判断是否回环地址
-		if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
-			if ipnet.IP.To4() != nil {
-				fmt.Println(ipnet.IP.String())
-				if ipnet.IP.String() == "192.168.3.6" {
-					startcat = true
-				}
-			}
-		}
-	}
+	var startcat bool = true
+	// addrs, err := net.InterfaceAddrs()
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// }
+	// for _, address := range addrs {
+	// 	// 检查ip地址判断是否回环地址
+	// 	if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+	// 		if ipnet.IP.To4() != nil {
+	// 			fmt.Println(ipnet.IP.String())
+	// 			if ipnet.IP.String() == "192.168.3.6" {
+	// 				startcat = true
+	// 			}
+	// 		}
+	// 	}
+	// }
 	if startcat {
 		global.GVA_VP = core.Viper() // 初始化Viper
 		initialize.OtherInit()
