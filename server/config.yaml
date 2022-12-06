@@ -35,7 +35,7 @@ baosms:
   password: 670dacedf04a5c0866b044b0b299d93a
   sign: 【新华信诚】
 captcha:
-  key-long: 6
+  key-long: 4
   img-width: 240
   img-height: 80
 cors:
@@ -63,17 +63,20 @@ db-list:
   db-name: ""
   username: ""
   password: ""
+  prefix: ""
+  singular: false
+  engine: ""
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: ""
   log-zap: false
 email:
-  to: xxx@qq.com
+  to: 986889280@qq.com
   port: 465
-  from: xxx@163.com
+  from: trz7687@163.com
   host: smtp.163.com
-  is-ssl: false
-  secret: "588"
+  is-ssl: true
+  secret: ZVHYZFSKPFSJUOFB
   nickname: test
 excel:
   dir: ./resource/excel/
@@ -98,9 +101,26 @@ mysql:
   db-name: goadmin
   username: goadmin
   password: kaJttR3Et6k2NwjD
+  prefix: ""
+  singular: false
+  engine: ""
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: error
+  log-zap: false
+oracle:
+  path: ""
+  port: ""
+  config: ""
+  db-name: ""
+  username: ""
+  password: ""
+  prefix: ""
+  singular: false
+  engine: ""
+  max-idle-conns: 0
+  max-open-conns: 0
+  log-mode: ""
   log-zap: false
 pgsql:
   path: ""
@@ -109,6 +129,9 @@ pgsql:
   db-name: ""
   username: ""
   password: ""
+  prefix: ""
+  singular: false
+  engine: ""
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: ""

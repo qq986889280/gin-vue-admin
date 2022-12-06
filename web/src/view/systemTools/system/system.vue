@@ -414,7 +414,8 @@ const config = ref({
   email: {},
   timer: {
     detail: {}
-  }
+  },
+  baosms: {}
 })
 
 const initForm = async() => {

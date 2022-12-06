@@ -41,25 +41,26 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" />
-        <el-table-column align="left" label="日期" width="180">
-          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
+        <el-table-column align="left" label="按钮组" width="150">
+          <template #default="scope">
+            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateFaShangFunc(scope.row)">变更</el-button>
+            <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
+          </template>
         </el-table-column>
         <el-table-column align="left" label="商户id" prop="shangId" width="120" />
-        <el-table-column align="left" label="logo" prop="image" width="120" />
-        <el-table-column align="left" label="支付方式" prop="ptype" width="120" />
-        <el-table-column align="left" label="合约地址" prop="contractaddr" width="320" />
-        <el-table-column align="left" label="收款地址" prop="to" width="320" />
-        <el-table-column align="left" label="回调url" prop="url" width="120" />
+        <!-- <el-table-column align="left" label="logo" prop="image" width="120" /> -->
         <el-table-column align="left" label="区块链" prop="net" width="120">
           <template #default="scope">
             {{ filterDict(scope.row.net,netOptions) }}
           </template>
         </el-table-column>
-        <el-table-column align="left" label="按钮组">
-          <template #default="scope">
-            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateFaShangFunc(scope.row)">变更</el-button>
-            <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
-          </template>
+        <el-table-column align="left" label="支付方式" prop="ptype" width="120" />
+        <el-table-column align="left" label="合约地址" prop="contractaddr" width="320" />
+        <el-table-column align="left" label="收款地址" prop="to" width="320" />
+        <el-table-column align="left" label="回调url" prop="url" width="320" />
+
+        <el-table-column align="left" label="日期" width="180">
+          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
       </el-table>
       <div class="gva-pagination">
