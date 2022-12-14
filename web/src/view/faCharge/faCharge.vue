@@ -61,20 +61,25 @@
             {{ filterDict(scope.row.notice,statusOptions) }}
           </template>
         </el-table-column>
+        <el-table-column align="left" label="暂停" prop="notice" width="80">
+          <template #default="scope">
+            {{ filterDict(scope.row.stop,statusOptions) }}
+          </template>
+        </el-table-column>
         <el-table-column align="left" label="通知失败次数" prop="noticetimes" width="120" />
         <!-- <el-table-column align="left" label="会员id" prop="userId" width="120" /> -->
         <el-table-column align="left" label="商户id" prop="shangId" width="120" />
-        <el-table-column align="left" label="转账地址" prop="from" width="320" />
-        <el-table-column align="left" label="收账地址" prop="to" width="320" />
+        <el-table-column align="left" label="转账地址" prop="from" width="420" />
+        <el-table-column align="left" label="收账地址" prop="to" width="420" />
         <el-table-column align="left" label="金额" prop="number" width="120" />
         <!-- <el-table-column align="left" label="转账费用" prop="fee" width="120" /> -->
-        <el-table-column align="left" label="区块交易id" prop="txid" width="520" />
+        <el-table-column align="left" label="区块交易id" prop="txid" width="620" />
         <el-table-column align="left" label="更新时间" prop="UpdatedAt" width="250" />
 
         <el-table-column align="left" label="币种" prop="coin" width="120" />
         <el-table-column align="left" label="日志" prop="tradelog" width="120" />
         <el-table-column align="left" label="订单号" prop="orderSn" width="420" />
-        <el-table-column align="left" label="合约" prop="contract" width="320" />
+        <el-table-column align="left" label="合约" prop="contract" width="420" />
         <el-table-column align="left" label="区块网络" width="160">
           <template #default="scope">{{ scope.row.FaShang.net }}</template>
         </el-table-column>

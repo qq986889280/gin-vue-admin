@@ -39,6 +39,7 @@ func (faShangApi *FaShangApi) CreateFaShang(c *gin.Context) {
 	if uid > 1 {
 		faShang.ShangId = uid
 	}
+	faShang.Fun = utils.Hash(strconv.Itoa(faShang.ShangId)+faShang.Ptype+faShang.Contractaddr+faShang.To+strconv.Itoa(faShang.Net)+"fvbexop", "sha1", false)
 	verify := utils.Rules{
 		"Net": {utils.NotEmpty()},
 	}
@@ -122,6 +123,8 @@ func (faShangApi *FaShangApi) UpdateFaShang(c *gin.Context) {
 	if uid > 1 {
 		faShang.ShangId = uid
 	}
+	faShang.Fun = utils.Hash(strconv.Itoa(faShang.ShangId)+faShang.Ptype+faShang.Contractaddr+faShang.To+strconv.Itoa(faShang.Net)+"fvbexop", "sha1", false)
+
 	verify := utils.Rules{
 		"Net": {utils.NotEmpty()},
 	}

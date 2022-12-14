@@ -57,7 +57,7 @@ func (faShangService *FaShangService) GetFaShangInfoList(info chargeReq.FaShangS
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
-	if info.Net != nil {
+	if info.Net > 0 {
 		db = db.Where("net = ?", info.Net)
 	}
 	if info.ShangId > 1 {

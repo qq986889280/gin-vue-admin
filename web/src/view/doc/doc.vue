@@ -15,15 +15,28 @@
       <p>POST 请求</p>
       <pre>
           <code class="language-shell hljs">参数
-order_sn 订单号
-order_price 订单金额
-contract 合约地址
-from 转账地址
-to 收款地址
-sign 签名验证 加密方法 md5(order_sn+ order_price + from + to + 商户id)
+            OrderSn 订单号
+            Number 订单金额
+            Contract 合约地址
+            From 转账地址
+            To 收款地址
+            Sign 签名验证 加密方法 md5(OrderSn+ Number + From + To + 商户id)
+            <p style="color:#e30a0a">收到请返回 success</p>
 
-收到请返回 success
 </code></pre>
+      <pre>
+          <code class="language-shell hljs">
+            <p style="color:#e30a0a">例子</p>
+      {
+        "OrderSn":"1334",
+        "Number":"1",
+        "From":"0xb239ef88c7cd7ec36636b1998da7942b48c0821b",
+        "To":"0xb1436cB31F582914D2456F7FBc76780Cc874424F",
+        "Contract":"0x4350a1e196B4eBc169961C0A240513B98116786a",
+        "Sign":"68a838412f346c86541aaaeb295b8577"
+      }
+    </code>
+      </pre>
       <!-- <div class="tip">
         <p>我们建议使用 CDN 引入 Element 的用户在链接地址上锁定版本，以免将来 Element 升级时受到非兼容性更新的影响。锁定版本的方法请查看 <a
           href="https://unpkg.com"

@@ -25,6 +25,7 @@ type FaCharge struct {
 	EndTime     *int     `json:"endTime" form:"endTime" gorm:"column:end_time;comment:到期时间;size:10;"`
 	Notice      int      `json:"notice" form:"notice" gorm:"column:notice;comment:通知状态:0=待通知,1=成功,2=失败;size:11;"`
 	Noticetimes int      `json:"noticetimes" form:"noticetimes" gorm:"column:noticetimes;comment:通知次数;size:11;default:0"`
+	Stop        int      `json:"stop" form:"stop" gorm:"column:stop;comment:暂停;size:11;default:0"`
 	Bind        string   `json:"bind" form:"bind" gorm:"column:bind;comment:bind;size:255;"`
 	FaShangId   int      `json:"fashangId" form:"fashangId" gorm:"column:fashang_id;comment:充值类型;size:11;"`
 	FaShang     FaShang

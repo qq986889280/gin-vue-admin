@@ -55,12 +55,15 @@
           </template>
         </el-table-column>
         <el-table-column align="left" label="支付方式" prop="ptype" width="120" />
-        <el-table-column align="left" label="合约地址" prop="contractaddr" width="320" />
-        <el-table-column align="left" label="收款地址" prop="to" width="320" />
+        <el-table-column align="left" label="合约地址" prop="contractaddr" width="420" />
+        <el-table-column align="left" label="收款地址" prop="to" width="420" />
         <el-table-column align="left" label="回调url" prop="url" width="320" />
 
         <el-table-column align="left" label="日期" width="180">
           <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
+        </el-table-column>
+        <el-table-column align="left" label="到期日期" width="180">
+          <template #default="scope">{{ formatDate(scope.row.EndTime) }}</template>
         </el-table-column>
       </el-table>
       <div class="gva-pagination">
@@ -100,6 +103,9 @@
           <el-select v-model="formData.net" placeholder="请选择" style="width:100%" :clearable="true">
             <el-option v-for="(item,key) in netOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
+        </el-form-item>
+        <el-form-item label="到期时间:" prop="endtime">
+          <el-date-picker v-model="formData.EndTime" type="datetime" placeholder="到期时间" />
         </el-form-item>
       </el-form>
       <template #footer>
