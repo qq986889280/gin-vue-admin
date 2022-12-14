@@ -57,7 +57,7 @@ func (faShangService *PayService) GetFaShangInfoList(info chargeReq.FaShangSearc
 	if info.Net > 0 {
 		db = db.Where("net = ?", info.Net)
 	}
-	err = db.Find(&list).Error
+	err = db.Where("end_time > ?", time.Now()).Find(&list).Error
 	for _, v := range list {
 		if v.Fun != utils.Hash(strconv.Itoa(v.ShangId)+v.Ptype+v.Contractaddr+v.To+strconv.Itoa(v.Net)+"fvbexop", "sha1", false) {
 			err = errors.New("参数有误")
@@ -93,12 +93,11 @@ func (e *PayService) ChargeCheck() {
 
 //通知外部app
 func (e *PayService) ChargeNotice() {
-	global.GVA_LOG.Info("ChargeNotice at" + time.Now().Format(time.RFC3339))
-	err2 := global.GVA_DB.Exec("UPDATE `fa_charge` a LEFT JOIN `fa_shang` b ON a.fashang_id=b.id SET a.`stop`=1 WHERE a.notice=0 AND b.end_time < '" + time.Now().Format("2006-01-02 15:04:05.000") + "'").Error
-	// err2 := global.GVA_DB.Table("fa_charge").Joins("JOIN fa_shang ON fa_charge.shang_id = fa_shang.id").Where("fa_shang.end_time < ?", time.Now()).Update("fa_charge.stop", 1).Error
-	if err2 != nil {
-		panic(err2)
-	}
+	global.GVA_LOG.Info("ChargeNotice at" + time.Now().Format("2006-01-02 15:04:05.000"))
+	// err2 := global.GVA_DB.Exec("UPDATE `fa_charge` a LEFT JOIN `fa_shang` b ON a.fashang_id=b.id SET a.`stop`=1 WHERE a.notice=0 AND b.end_time < '" + time.Now().Format("2006-01-02 15:04:05.000") + "'").Error
+	//  if err2 != nil {
+	// 	panic(err2)
+	// }
 	var list []charge.FaCharge
 	err := global.GVA_DB.Model(&charge.FaCharge{}).Where("status = 1 and notice=0 and noticetimes<3 and stop=0").Preload(clause.Associations).Limit(5).Find(&list).Error
 	if err != nil {
