@@ -29,4 +29,5 @@ type Server struct {
 	Cors CORS `mapstructure:"cors" json:"cors" yaml:"cors"`
 
 	BaoSms BaoSms `mapstructure:"baosms" json:"baosms" yaml:"baosms"`
+	Cc     Cc     `mapstructure:"cc" json:"cc" yaml:"cc"`
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/middleware"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/baosms"
+	"github.com/flipped-aurora/gin-vue-admin/server/plugin/cc"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/email"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/pay"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/plugin"
@@ -40,5 +41,7 @@ func InstallPlugin(Router *gin.Engine) {
 		global.GVA_CONFIG.BaoSms.Sign,
 	), pay.CreatePayPlug(
 		"支付",
+	), cc.CreateCcPlug(
+		global.GVA_CONFIG.Cc.Curl,
 	))
 }

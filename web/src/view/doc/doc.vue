@@ -8,7 +8,7 @@
         App前端对接， url 携带参数直接跳转到该链接即可</h3>
 
       <pre>
-          <code class="language-shell hljs">http://game.tellwe.xyz/#/?id={{ userStore.userInfo.ID }}&order_sn=订单号
+          <code class="language-shell hljs">http://pay.tellwe.xyz/#/?id={{ userStore.userInfo.ID }}&order_sn=订单号
 </code></pre>
       <p>订单号推荐使用 base64加密 app内用户id,方便回调时解析充值</p>
       <h3 id="cdn">后端对接 充值回调接口</h3>
@@ -20,21 +20,23 @@
             Contract 合约地址
             From 转账地址
             To 收款地址
-            Sign 签名验证 加密方法 md5(OrderSn+ Number + From + To + 商户id)
+            Txid 交易hash
+            Sign 签名验证 加密方法 md5(OrderSn+ Number + From + To + Txid + 商户id)
             <p style="color:#e30a0a">收到请返回 success</p>
 
 </code></pre>
       <pre>
           <code class="language-shell hljs">
             <p style="color:#e30a0a">例子</p>
-      {
-        "OrderSn":"1334",
-        "Number":"1",
-        "From":"0xb239ef88c7cd7ec36636b1998da7942b48c0821b",
-        "To":"0xb1436cB31F582914D2456F7FBc76780Cc874424F",
-        "Contract":"0x4350a1e196B4eBc169961C0A240513B98116786a",
-        "Sign":"68a838412f346c86541aaaeb295b8577"
-      }
+            {
+              "OrderSn":"24079p20221214224420651",
+              "Number":"1.68",
+              "From":"0xb1436cb31f582914d2456f7fbc76780cc874424f",
+              "To":"0xb1436cB31F582914D2456F7FBc76780Cc874424F",
+              "Contract":"0x4350a1e196B4eBc169961C0A240513B98116786a",
+              "Txid":"0x150f74a7a53e6782b8778ec29479015fbb6736df1e0f4e92858757e4a681f856",
+              "Sign":"add08b31e088701be13c83557a25c3ea"
+            }
     </code>
       </pre>
       <!-- <div class="tip">
@@ -104,6 +106,10 @@ export default {
 	}
 
 	.hljs {
+    display: block;
+    overflow-x: auto;
+    background: #f4ecec;
+    color: #585050;
 		line-height: 1.8;
 		font-family: Menlo, Monaco, Consolas, Courier, monospace;
 		font-size: 12px;

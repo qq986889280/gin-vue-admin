@@ -24,5 +24,6 @@ type NoticeResponse struct {
 	From     string
 	To       string
 	Contract string
+	Txid     string
 	Sign     string
 }

@@ -112,7 +112,8 @@ func (e *PayService) ChargeNotice() {
 				From:     v.From,
 				To:       v.To,
 				Contract: v.Contract,
-				Sign:     utils.Md5(v.OrderSn + strconv.FormatFloat(v.Number, 'f', -1, 64) + v.From + v.To + strconv.Itoa(v.ShangId)),
+				Txid:     v.Txid,
+				Sign:     utils.Md5(v.OrderSn + strconv.FormatFloat(v.Number, 'f', -1, 64) + v.From + v.To + v.Txid + strconv.Itoa(v.ShangId)),
 			}
 			defer func() {
 				if err := recover(); err != nil {
