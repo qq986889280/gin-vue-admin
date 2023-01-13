@@ -5,6 +5,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/service/example"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/shang"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
+	"github.com/flipped-aurora/gin-vue-admin/server/service/video"
 )
 
 type ServiceGroup struct {
@@ -12,6 +13,7 @@ type ServiceGroup struct {
 	ExampleServiceGroup example.ServiceGroup
 	ChargeServiceGroup  charge.ServiceGroup
 	ShangServiceGroup   shang.ServiceGroup
+	VideoServiceGroup   video.ServiceGroup
 }
 
 var ServiceGroupApp = new(ServiceGroup)

@@ -12,6 +12,6 @@ func (s *CcRouter) InitCcRouter(Router *gin.RouterGroup) {
 	plugRouter := Router
 	plugApi := api.ApiGroupApp.CcApi
 	{
-		plugRouter.POST("routerName", plugApi.ApiName)
+		plugRouter.GET("cai", plugApi.Cai)
 	}
 }
