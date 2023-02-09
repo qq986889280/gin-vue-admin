@@ -1,5 +1,89 @@
-basePath: /
 definitions:
+  charge.FaCharge:
+    properties:
+      bind:
+        type: string
+      coin:
+        type: string
+      contract:
+        type: string
+      createTime:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      cycle:
+        type: integer
+      endTime:
+        type: integer
+      faShang:
+        $ref: '#/definitions/charge.FaShang'
+      fashangId:
+        type: integer
+      fee:
+        type: number
+      from:
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      notice:
+        type: integer
+      noticetimes:
+        type: integer
+      number:
+        type: number
+      orderSn:
+        type: string
+      shangId:
+        type: integer
+      status:
+        type: integer
+      stop:
+        type: integer
+      to:
+        type: string
+      tradelog:
+        type: string
+      txid:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        type: integer
+    type: object
+  charge.FaShang:
+    properties:
+      contractaddr:
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      endTime:
+        description: 到期时间
+        type: string
+      fun:
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      image:
+        type: string
+      net:
+        type: integer
+      ptype:
+        type: string
+      shangId:
+        type: integer
+      to:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+      url:
+        type: string
+    type: object
   config.AliyunOSS:
     properties:
       access-key-id:
@@ -113,30 +197,6 @@ definitions:
         description: 需要清理的表名
         type: string
     type: object
-  config.Email:
-    properties:
-      from:
-        description: 收件人
-        type: string
-      host:
-        description: 服务器地址
-        type: string
-      is-ssl:
-        description: 是否SSL
-        type: boolean
-      nickname:
-        description: 昵称
-        type: string
-      port:
-        description: 端口
-        type: integer
-      secret:
-        description: 密钥
-        type: string
-      to:
-        description: 收件人:多个以英文逗号分隔
-        type: string
-    type: object
   config.Excel:
     properties:
       dir:
@@ -187,6 +247,10 @@ definitions:
       db-name:
         description: 数据库名
         type: string
+      engine:
+        default: InnoDB
+        description: 数据库引擎，默认InnoDB
+        type: string
       log-mode:
         description: 是否开启Gorm全局日志
         type: string
@@ -208,6 +272,55 @@ definitions:
       port:
         description: :端口
         type: string
+      prefix:
+        description: 全局表前缀，单独定义TableName则不生效
+        type: string
+      singular:
+        description: 是否开启全局禁用复数，true表示开启
+        type: boolean
+      username:
+        description: 数据库用户名
+        type: string
+    type: object
+  config.Oracle:
+    properties:
+      config:
+        description: 高级配置
+        type: string
+      db-name:
+        description: 数据库名
+        type: string
+      engine:
+        default: InnoDB
+        description: 数据库引擎，默认InnoDB
+        type: string
+      log-mode:
+        description: 是否开启Gorm全局日志
+        type: string
+      log-zap:
+        description: 是否通过zap写入日志文件
+        type: boolean
+      max-idle-conns:
+        description: 空闲中的最大连接数
+        type: integer
+      max-open-conns:
+        description: 打开到数据库的最大连接数
+        type: integer
+      password:
+        description: 数据库密码
+        type: string
+      path:
+        description: 服务器地址:端口
+        type: string
+      port:
+        description: :端口
+        type: string
+      prefix:
+        description: 全局表前缀，单独定义TableName则不生效
+        type: string
+      singular:
+        description: 是否开启全局禁用复数，true表示开启
+        type: boolean
       username:
         description: 数据库用户名
         type: string
@@ -220,6 +333,10 @@ definitions:
       db-name:
         description: 数据库名
         type: string
+      engine:
+        default: InnoDB
+        description: 数据库引擎，默认InnoDB
+        type: string
       log-mode:
         description: 是否开启Gorm全局日志
         type: string
@@ -241,6 +358,12 @@ definitions:
       port:
         description: :端口
         type: string
+      prefix:
+        description: 全局表前缀，单独定义TableName则不生效
+        type: string
+      singular:
+        description: 是否开启全局禁用复数，true表示开启
+        type: boolean
       username:
         description: 数据库用户名
         type: string
@@ -286,21 +409,27 @@ definitions:
       aliyun-oss:
         $ref: '#/definitions/config.AliyunOSS'
       autocode:
-        $ref: '#/definitions/config.Autocode'
+        allOf:
+        - $ref: '#/definitions/config.Autocode'
         description: auto
       aws-s3:
         $ref: '#/definitions/config.AwsS3'
+      baosms:
+        $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.BaoSms'
       captcha:
         $ref: '#/definitions/config.Captcha'
+      cc:
+        $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.Cc'
       cors:
-        $ref: '#/definitions/config.CORS'
+        allOf:
+        - $ref: '#/definitions/config.CORS'
         description: 跨域配置
       db-list:
         items:
           $ref: '#/definitions/config.SpecializedDB'
         type: array
       email:
-        $ref: '#/definitions/config.Email'
+        $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.Email'
       excel:
         $ref: '#/definitions/config.Excel'
       hua-wei-obs:
@@ -308,11 +437,15 @@ definitions:
       jwt:
         $ref: '#/definitions/config.JWT'
       local:
-        $ref: '#/definitions/config.Local'
+        allOf:
+        - $ref: '#/definitions/config.Local'
         description: oss
       mysql:
-        $ref: '#/definitions/config.Mysql'
+        allOf:
+        - $ref: '#/definitions/config.Mysql'
         description: gorm
+      oracle:
+        $ref: '#/definitions/config.Oracle'
       pgsql:
         $ref: '#/definitions/config.Pgsql'
       qiniu:
@@ -340,6 +473,10 @@ definitions:
         type: string
       disable:
         type: boolean
+      engine:
+        default: InnoDB
+        description: 数据库引擎，默认InnoDB
+        type: string
       log-mode:
         description: 是否开启Gorm全局日志
         type: string
@@ -361,6 +498,12 @@ definitions:
       port:
         description: :端口
         type: string
+      prefix:
+        description: 全局表前缀，单独定义TableName则不生效
+        type: string
+      singular:
+        description: 是否开启全局禁用复数，true表示开启
+        type: boolean
       type:
         type: string
       username:
@@ -468,7 +611,8 @@ definitions:
         description: 主键ID
         type: integer
       sysUser:
-        $ref: '#/definitions/system.SysUser'
+        allOf:
+        - $ref: '#/definitions/system.SysUser'
         description: 管理详情
       sysUserAuthorityID:
         description: 管理角色ID
@@ -557,6 +701,47 @@ definitions:
         items:
           $ref: '#/definitions/system.SysBaseMenu'
         type: array
+    type: object
+  github_com_flipped-aurora_gin-vue-admin_server_config.BaoSms:
+    properties:
+      password:
+        description: 密码
+        type: string
+      sign:
+        type: string
+      username:
+        description: 账号
+        type: string
+    type: object
+  github_com_flipped-aurora_gin-vue-admin_server_config.Cc:
+    properties:
+      curl:
+        description: 域名
+        type: string
+    type: object
+  github_com_flipped-aurora_gin-vue-admin_server_config.Email:
+    properties:
+      from:
+        description: 收件人
+        type: string
+      host:
+        description: 服务器地址
+        type: string
+      is-ssl:
+        description: 是否SSL
+        type: boolean
+      nickname:
+        description: 昵称
+        type: string
+      port:
+        description: 端口
+        type: integer
+      secret:
+        description: 密钥
+        type: string
+      to:
+        description: 收件人:多个以英文逗号分隔
+        type: string
     type: object
   request.AddMenuAuthorityInfo:
     properties:
@@ -671,20 +856,31 @@ definitions:
   request.Register:
     properties:
       authorityId:
-        type: integer
+        example: int 角色id
+        type: string
       authorityIds:
-        items:
-          type: integer
-        type: array
+        example: '[]uint 角色id'
+        type: string
+      email:
+        example: 电子邮箱
+        type: string
       enable:
-        type: integer
+        example: int 是否启用
+        type: string
       headerImg:
+        example: 头像链接
         type: string
       nickName:
+        example: 昵称
         type: string
       passWord:
+        example: 密码
+        type: string
+      phone:
+        example: 电话号码
         type: string
       userName:
+        example: 用户名
         type: string
     type: object
   request.RollBack:
@@ -839,6 +1035,8 @@ definitions:
       data: {}
       msg:
         type: string
+      time:
+        type: integer
     type: object
   response.SysAPIListResponse:
     properties:
@@ -924,6 +1122,9 @@ definitions:
       autoMoveFile:
         description: 是否自动移动文件
         type: boolean
+      businessDB:
+        description: 业务数据库
+        type: string
       description:
         description: Struct中文名称
         type: string
@@ -986,6 +1187,29 @@ definitions:
       require:
         description: 是否必填
         type: boolean
+      sort:
+        description: 是否增加排序
+        type: boolean
+    type: object
+  system.Meta:
+    properties:
+      activeName:
+        type: string
+      closeTab:
+        description: 自动关闭tab
+        type: boolean
+      defaultMenu:
+        description: 是否是基础路由（开发中）
+        type: boolean
+      icon:
+        description: 菜单图标
+        type: string
+      keepAlive:
+        description: 是否缓存
+        type: boolean
+      title:
+        description: 菜单名
+        type: string
     type: object
   system.SysApi:
     properties:
@@ -1074,34 +1298,26 @@ definitions:
         items:
           $ref: '#/definitions/system.SysBaseMenu'
         type: array
-      closeTab:
-        description: 自动关闭tab
-        type: boolean
       component:
         description: 对应前端文件路径
         type: string
       createdAt:
         description: 创建时间
         type: string
-      defaultMenu:
-        description: 是否是基础路由（开发中）
-        type: boolean
       hidden:
         description: 是否在列表隐藏
         type: boolean
-      icon:
-        description: 菜单图标
-        type: string
       id:
         description: 主键ID
         type: integer
-      keepAlive:
-        description: 是否缓存
-        type: boolean
       menuBtn:
         items:
           $ref: '#/definitions/system.SysBaseMenuBtn'
         type: array
+      meta:
+        allOf:
+        - $ref: '#/definitions/system.Meta'
+        description: 附加属性
       name:
         description: 路由name
         type: string
@@ -1118,9 +1334,6 @@ definitions:
       sort:
         description: 排序标记
         type: integer
-      title:
-        description: 菜单名
-        type: string
       updatedAt:
         description: 更新时间
         type: string
@@ -1235,36 +1448,28 @@ definitions:
         items:
           $ref: '#/definitions/system.SysMenu'
         type: array
-      closeTab:
-        description: 自动关闭tab
-        type: boolean
       component:
         description: 对应前端文件路径
         type: string
       createdAt:
         description: 创建时间
         type: string
-      defaultMenu:
-        description: 是否是基础路由（开发中）
-        type: boolean
       hidden:
         description: 是否在列表隐藏
         type: boolean
-      icon:
-        description: 菜单图标
-        type: string
       id:
         description: 主键ID
         type: integer
-      keepAlive:
-        description: 是否缓存
-        type: boolean
       menuBtn:
         items:
           $ref: '#/definitions/system.SysBaseMenuBtn'
         type: array
       menuId:
         type: string
+      meta:
+        allOf:
+        - $ref: '#/definitions/system.Meta'
+        description: 附加属性
       name:
         description: 路由name
         type: string
@@ -1281,9 +1486,6 @@ definitions:
       sort:
         description: 排序标记
         type: integer
-      title:
-        description: 菜单名
-        type: string
       updatedAt:
         description: 更新时间
         type: string
@@ -1388,11 +1590,107 @@ definitions:
       config:
         $ref: '#/definitions/config.Server'
     type: object
+  video.VideoDetails:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      groupId:
+        type: integer
+      id:
+        description: 主键ID
+        type: integer
+      typeId:
+        type: integer
+      typeId1:
+        type: integer
+      typeName:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+      vodActor:
+        type: string
+      vodArea:
+        type: string
+      vodBehind:
+        type: string
+      vodBlurb:
+        type: string
+      vodClass:
+        type: string
+      vodContent:
+        type: string
+      vodDirector:
+        type: string
+      vodDoubanId:
+        type: integer
+      vodDoubanScore:
+        type: string
+      vodDown:
+        type: integer
+      vodDuration:
+        type: string
+      vodEn:
+        type: string
+      vodHits:
+        type: integer
+      vodHitsDay:
+        type: integer
+      vodHitsMonth:
+        type: integer
+      vodHitsWeek:
+        type: integer
+      vodId:
+        type: integer
+      vodLang:
+        type: string
+      vodLetter:
+        type: string
+      vodName:
+        type: string
+      vodPic:
+        type: string
+      vodPicScreenshot:
+        type: string
+      vodPlayUrl:
+        type: string
+      vodPubdate:
+        type: string
+      vodRemarks:
+        type: string
+      vodScore:
+        type: string
+      vodScoreAll:
+        type: integer
+      vodScoreNum:
+        type: integer
+      vodSerial:
+        type: string
+      vodStatus:
+        type: boolean
+      vodSub:
+        type: string
+      vodTag:
+        type: string
+      vodTime:
+        type: string
+      vodTimeAdd:
+        type: integer
+      vodTotal:
+        type: integer
+      vodUp:
+        type: integer
+      vodWriter:
+        type: string
+      vodYear:
+        type: string
+    type: object
 info:
   contact: {}
-  description: This is a sample Server pets
-  title: Swagger Example API
-  version: 0.0.1
+  description: api文档在线调试
+  title: Swagger API
+  version: "1"
 paths:
   /api/createApi:
     post:
@@ -2202,6 +2500,18 @@ paths:
       summary: 回滚自动生成代码
       tags:
       - AutoCode
+  /baosms/routerName:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"发送成功"}'
+          schema:
+            type: string
+      summary: 请手动填写接口功能
+      tags:
+      - BaoSms
   /base/captcha:
     post:
       consumes:
@@ -2309,6 +2619,18 @@ paths:
       summary: 获取权限列表
       tags:
       - Casbin
+  /cc/routerName:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"发送成功"}'
+          schema:
+            type: string
+      summary: 请手动填写接口功能
+      tags:
+      - Cc
   /customer/customer:
     delete:
       consumes:
@@ -2527,7 +2849,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: ""
+          description: OK
       security:
       - ApiKeyAuth: []
       summary: 下载模板
@@ -2548,7 +2870,7 @@ paths:
       - application/octet-stream
       responses:
         "200":
-          description: ""
+          description: OK
       security:
       - ApiKeyAuth: []
       summary: 导出Excel
@@ -2602,6 +2924,518 @@ paths:
       summary: 加载Excel数据
       tags:
       - excel
+  /faCharge/createFaCharge:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建FaCharge
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/charge.FaCharge'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建FaCharge
+      tags:
+      - FaCharge
+  /faCharge/deleteFaCharge:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除FaCharge
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/charge.FaCharge'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除FaCharge
+      tags:
+      - FaCharge
+  /faCharge/deleteFaChargeByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除FaCharge
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除FaCharge
+      tags:
+      - FaCharge
+  /faCharge/findFaCharge:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: bind
+        type: string
+      - in: query
+        name: coin
+        type: string
+      - in: query
+        name: contract
+        type: string
+      - in: query
+        name: createTime
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: cycle
+        type: integer
+      - in: query
+        name: endTime
+        type: integer
+      - in: query
+        name: fashangId
+        type: integer
+      - in: query
+        name: fee
+        type: number
+      - in: query
+        name: from
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: notice
+        type: integer
+      - in: query
+        name: noticetimes
+        type: integer
+      - in: query
+        name: number
+        type: number
+      - in: query
+        name: orderSn
+        type: string
+      - in: query
+        name: shangId
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: stop
+        type: integer
+      - in: query
+        name: to
+        type: string
+      - in: query
+        name: tradelog
+        type: string
+      - in: query
+        name: txid
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询FaCharge
+      tags:
+      - FaCharge
+  /faCharge/getFaChargeList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: bind
+        type: string
+      - in: query
+        name: coin
+        type: string
+      - in: query
+        name: contract
+        type: string
+      - in: query
+        name: createTime
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: cycle
+        type: integer
+      - in: query
+        name: endCreatedAt
+        type: string
+      - in: query
+        name: endTime
+        type: integer
+      - in: query
+        name: fashangId
+        type: integer
+      - in: query
+        name: fee
+        type: number
+      - in: query
+        name: from
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: notice
+        type: integer
+      - in: query
+        name: noticetimes
+        type: integer
+      - in: query
+        name: number
+        type: number
+      - in: query
+        name: orderSn
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: shangId
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: stop
+        type: integer
+      - in: query
+        name: to
+        type: string
+      - in: query
+        name: tradelog
+        type: string
+      - in: query
+        name: txid
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取FaCharge列表
+      tags:
+      - FaCharge
+  /faCharge/updateFaCharge:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新FaCharge
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/charge.FaCharge'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新FaCharge
+      tags:
+      - FaCharge
+  /faShang/createFaShang:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建FaShang
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/charge.FaShang'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建FaShang
+      tags:
+      - FaShang
+  /faShang/deleteFaShang:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除FaShang
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/charge.FaShang'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除FaShang
+      tags:
+      - FaShang
+  /faShang/deleteFaShangByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除FaShang
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除FaShang
+      tags:
+      - FaShang
+  /faShang/findFaShang:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: contractaddr
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 到期时间
+        in: query
+        name: endTime
+        type: string
+      - in: query
+        name: fun
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: image
+        type: string
+      - in: query
+        name: net
+        type: integer
+      - in: query
+        name: ptype
+        type: string
+      - in: query
+        name: shangId
+        type: integer
+      - in: query
+        name: to
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: url
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询FaShang
+      tags:
+      - FaShang
+  /faShang/getFaShangList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: contractaddr
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 到期时间
+        in: query
+        name: endTime
+        type: string
+      - in: query
+        name: fun
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: image
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: net
+        type: integer
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: ptype
+        type: string
+      - in: query
+        name: shangId
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: to
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: url
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取FaShang列表
+      tags:
+      - FaShang
+  /faShang/updateFaShang:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新FaShang
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/charge.FaShang'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新FaShang
+      tags:
+      - FaShang
   /fileUploadAndDownload/breakpointContinue:
     post:
       consumes:
@@ -3094,6 +3928,18 @@ paths:
       summary: 更新菜单
       tags:
       - Menu
+  /pay/routerName:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"发送成功"}'
+          schema:
+            type: string
+      summary: 充值订单检查
+      tags:
+      - Pay
   /sysDictionary/createSysDictionary:
     post:
       consumes:
@@ -4119,6 +4965,426 @@ paths:
       summary: 设置用户信息
       tags:
       - SysUser
+  /videoDetails/createVideoDetails:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建VideoDetails
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/video.VideoDetails'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建VideoDetails
+      tags:
+      - VideoDetails
+  /videoDetails/deleteVideoDetails:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除VideoDetails
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/video.VideoDetails'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除VideoDetails
+      tags:
+      - VideoDetails
+  /videoDetails/deleteVideoDetailsByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除VideoDetails
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除VideoDetails
+      tags:
+      - VideoDetails
+  /videoDetails/findVideoDetails:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: groupId
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: typeId
+        type: integer
+      - in: query
+        name: typeId1
+        type: integer
+      - in: query
+        name: typeName
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: vodActor
+        type: string
+      - in: query
+        name: vodArea
+        type: string
+      - in: query
+        name: vodBehind
+        type: string
+      - in: query
+        name: vodBlurb
+        type: string
+      - in: query
+        name: vodClass
+        type: string
+      - in: query
+        name: vodContent
+        type: string
+      - in: query
+        name: vodDirector
+        type: string
+      - in: query
+        name: vodDoubanId
+        type: integer
+      - in: query
+        name: vodDoubanScore
+        type: string
+      - in: query
+        name: vodDown
+        type: integer
+      - in: query
+        name: vodDuration
+        type: string
+      - in: query
+        name: vodEn
+        type: string
+      - in: query
+        name: vodHits
+        type: integer
+      - in: query
+        name: vodHitsDay
+        type: integer
+      - in: query
+        name: vodHitsMonth
+        type: integer
+      - in: query
+        name: vodHitsWeek
+        type: integer
+      - in: query
+        name: vodId
+        type: integer
+      - in: query
+        name: vodLang
+        type: string
+      - in: query
+        name: vodLetter
+        type: string
+      - in: query
+        name: vodName
+        type: string
+      - in: query
+        name: vodPic
+        type: string
+      - in: query
+        name: vodPicScreenshot
+        type: string
+      - in: query
+        name: vodPlayUrl
+        type: string
+      - in: query
+        name: vodPubdate
+        type: string
+      - in: query
+        name: vodRemarks
+        type: string
+      - in: query
+        name: vodScore
+        type: string
+      - in: query
+        name: vodScoreAll
+        type: integer
+      - in: query
+        name: vodScoreNum
+        type: integer
+      - in: query
+        name: vodSerial
+        type: string
+      - in: query
+        name: vodStatus
+        type: boolean
+      - in: query
+        name: vodSub
+        type: string
+      - in: query
+        name: vodTag
+        type: string
+      - in: query
+        name: vodTime
+        type: string
+      - in: query
+        name: vodTimeAdd
+        type: integer
+      - in: query
+        name: vodTotal
+        type: integer
+      - in: query
+        name: vodUp
+        type: integer
+      - in: query
+        name: vodWriter
+        type: string
+      - in: query
+        name: vodYear
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询VideoDetails
+      tags:
+      - VideoDetails
+  /videoDetails/getVideoDetailsList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - in: query
+        name: groupId
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: typeId
+        type: integer
+      - in: query
+        name: typeId1
+        type: integer
+      - in: query
+        name: typeName
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: vodActor
+        type: string
+      - in: query
+        name: vodArea
+        type: string
+      - in: query
+        name: vodBehind
+        type: string
+      - in: query
+        name: vodBlurb
+        type: string
+      - in: query
+        name: vodClass
+        type: string
+      - in: query
+        name: vodContent
+        type: string
+      - in: query
+        name: vodDirector
+        type: string
+      - in: query
+        name: vodDoubanId
+        type: integer
+      - in: query
+        name: vodDoubanScore
+        type: string
+      - in: query
+        name: vodDown
+        type: integer
+      - in: query
+        name: vodDuration
+        type: string
+      - in: query
+        name: vodEn
+        type: string
+      - in: query
+        name: vodHits
+        type: integer
+      - in: query
+        name: vodHitsDay
+        type: integer
+      - in: query
+        name: vodHitsMonth
+        type: integer
+      - in: query
+        name: vodHitsWeek
+        type: integer
+      - in: query
+        name: vodId
+        type: integer
+      - in: query
+        name: vodLang
+        type: string
+      - in: query
+        name: vodLetter
+        type: string
+      - in: query
+        name: vodName
+        type: string
+      - in: query
+        name: vodPic
+        type: string
+      - in: query
+        name: vodPicScreenshot
+        type: string
+      - in: query
+        name: vodPlayUrl
+        type: string
+      - in: query
+        name: vodPubdate
+        type: string
+      - in: query
+        name: vodRemarks
+        type: string
+      - in: query
+        name: vodScore
+        type: string
+      - in: query
+        name: vodScoreAll
+        type: integer
+      - in: query
+        name: vodScoreNum
+        type: integer
+      - in: query
+        name: vodSerial
+        type: string
+      - in: query
+        name: vodStatus
+        type: boolean
+      - in: query
+        name: vodSub
+        type: string
+      - in: query
+        name: vodTag
+        type: string
+      - in: query
+        name: vodTime
+        type: string
+      - in: query
+        name: vodTimeAdd
+        type: integer
+      - in: query
+        name: vodTotal
+        type: integer
+      - in: query
+        name: vodUp
+        type: integer
+      - in: query
+        name: vodWriter
+        type: string
+      - in: query
+        name: vodYear
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取VideoDetails列表
+      tags:
+      - VideoDetails
+  /videoDetails/updateVideoDetails:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新VideoDetails
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/video.VideoDetails'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新VideoDetails
+      tags:
+      - VideoDetails
 securityDefinitions:
   ApiKeyAuth:
     in: header

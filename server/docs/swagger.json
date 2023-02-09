@@ -1,12 +1,11 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a sample Server pets",
-        "title": "Swagger Example API",
+        "description": "api文档在线调试",
+        "title": "Swagger API",
         "contact": {},
-        "version": "0.0.1"
+        "version": "1"
     },
-    "basePath": "/",
     "paths": {
         "/api/createApi": {
             "post": {
@@ -1440,6 +1439,25 @@
                 }
             }
         },
+        "/baosms/routerName": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "BaoSms"
+                ],
+                "summary": "请手动填写接口功能",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"发送成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/base/captcha": {
             "post": {
                 "security": [
@@ -1625,6 +1643,25 @@
                                     }
                                 }
                             ]
+                        }
+                    }
+                }
+            }
+        },
+        "/cc/routerName": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cc"
+                ],
+                "summary": "请手动填写接口功能",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"发送成功\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -2009,7 +2046,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     }
                 }
             }
@@ -2044,7 +2081,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     }
                 }
             }
@@ -2131,6 +2168,846 @@
                                     }
                                 }
                             ]
+                        }
+                    }
+                }
+            }
+        },
+        "/faCharge/createFaCharge": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FaCharge"
+                ],
+                "summary": "创建FaCharge",
+                "parameters": [
+                    {
+                        "description": "创建FaCharge",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/charge.FaCharge"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/faCharge/deleteFaCharge": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FaCharge"
+                ],
+                "summary": "删除FaCharge",
+                "parameters": [
+                    {
+                        "description": "删除FaCharge",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/charge.FaCharge"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/faCharge/deleteFaChargeByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FaCharge"
+                ],
+                "summary": "批量删除FaCharge",
+                "parameters": [
+                    {
+                        "description": "批量删除FaCharge",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/faCharge/findFaCharge": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FaCharge"
+                ],
+                "summary": "用id查询FaCharge",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "bind",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "coin",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "contract",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "cycle",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "endTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "fashangId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "fee",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "from",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "notice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "noticetimes",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "number",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "orderSn",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "shangId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "stop",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "to",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tradelog",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "txid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/faCharge/getFaChargeList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FaCharge"
+                ],
+                "summary": "分页获取FaCharge列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "bind",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "coin",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "contract",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "cycle",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "endTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "fashangId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "fee",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "from",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "notice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "noticetimes",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "number",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "orderSn",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "shangId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "stop",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "to",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tradelog",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "txid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/faCharge/updateFaCharge": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FaCharge"
+                ],
+                "summary": "更新FaCharge",
+                "parameters": [
+                    {
+                        "description": "更新FaCharge",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/charge.FaCharge"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/faShang/createFaShang": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FaShang"
+                ],
+                "summary": "创建FaShang",
+                "parameters": [
+                    {
+                        "description": "创建FaShang",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/charge.FaShang"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/faShang/deleteFaShang": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FaShang"
+                ],
+                "summary": "删除FaShang",
+                "parameters": [
+                    {
+                        "description": "删除FaShang",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/charge.FaShang"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/faShang/deleteFaShangByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FaShang"
+                ],
+                "summary": "批量删除FaShang",
+                "parameters": [
+                    {
+                        "description": "批量删除FaShang",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/faShang/findFaShang": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FaShang"
+                ],
+                "summary": "用id查询FaShang",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "contractaddr",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "到期时间",
+                        "name": "endTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "fun",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "image",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "net",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ptype",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "shangId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "to",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "url",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/faShang/getFaShangList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FaShang"
+                ],
+                "summary": "分页获取FaShang列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "contractaddr",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "到期时间",
+                        "name": "endTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "fun",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "image",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "net",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ptype",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "shangId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "to",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "url",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/faShang/updateFaShang": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FaShang"
+                ],
+                "summary": "更新FaShang",
+                "parameters": [
+                    {
+                        "description": "更新FaShang",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/charge.FaShang"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -3005,6 +3882,25 @@
                                     }
                                 }
                             ]
+                        }
+                    }
+                }
+            }
+        },
+        "/pay/routerName": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pay"
+                ],
+                "summary": "充值订单检查",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"发送成功\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -4771,9 +5667,828 @@
                     }
                 }
             }
+        },
+        "/videoDetails/createVideoDetails": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "VideoDetails"
+                ],
+                "summary": "创建VideoDetails",
+                "parameters": [
+                    {
+                        "description": "创建VideoDetails",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/video.VideoDetails"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/videoDetails/deleteVideoDetails": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "VideoDetails"
+                ],
+                "summary": "删除VideoDetails",
+                "parameters": [
+                    {
+                        "description": "删除VideoDetails",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/video.VideoDetails"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/videoDetails/deleteVideoDetailsByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "VideoDetails"
+                ],
+                "summary": "批量删除VideoDetails",
+                "parameters": [
+                    {
+                        "description": "批量删除VideoDetails",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/videoDetails/findVideoDetails": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "VideoDetails"
+                ],
+                "summary": "用id查询VideoDetails",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "groupId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "typeId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "typeId1",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "typeName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodActor",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodArea",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodBehind",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodBlurb",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodClass",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodContent",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodDirector",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodDoubanId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodDoubanScore",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodDown",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodDuration",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodEn",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodHits",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodHitsDay",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodHitsMonth",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodHitsWeek",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodLang",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodLetter",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodPic",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodPicScreenshot",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodPlayUrl",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodPubdate",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodRemarks",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodScore",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodScoreAll",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodScoreNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodSerial",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "vodStatus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodSub",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodTag",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodTimeAdd",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodTotal",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodUp",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodWriter",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodYear",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/videoDetails/getVideoDetailsList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "VideoDetails"
+                ],
+                "summary": "分页获取VideoDetails列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "groupId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "typeId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "typeId1",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "typeName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodActor",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodArea",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodBehind",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodBlurb",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodClass",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodContent",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodDirector",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodDoubanId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodDoubanScore",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodDown",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodDuration",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodEn",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodHits",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodHitsDay",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodHitsMonth",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodHitsWeek",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodLang",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodLetter",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodPic",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodPicScreenshot",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodPlayUrl",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodPubdate",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodRemarks",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodScore",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodScoreAll",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodScoreNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodSerial",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "vodStatus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodSub",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodTag",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodTimeAdd",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodTotal",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vodUp",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodWriter",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "vodYear",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/videoDetails/updateVideoDetails": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "VideoDetails"
+                ],
+                "summary": "更新VideoDetails",
+                "parameters": [
+                    {
+                        "description": "更新VideoDetails",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/video.VideoDetails"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "charge.FaCharge": {
+            "type": "object",
+            "properties": {
+                "bind": {
+                    "type": "string"
+                },
+                "coin": {
+                    "type": "string"
+                },
+                "contract": {
+                    "type": "string"
+                },
+                "createTime": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "cycle": {
+                    "type": "integer"
+                },
+                "endTime": {
+                    "type": "integer"
+                },
+                "faShang": {
+                    "$ref": "#/definitions/charge.FaShang"
+                },
+                "fashangId": {
+                    "type": "integer"
+                },
+                "fee": {
+                    "type": "number"
+                },
+                "from": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "notice": {
+                    "type": "integer"
+                },
+                "noticetimes": {
+                    "type": "integer"
+                },
+                "number": {
+                    "type": "number"
+                },
+                "orderSn": {
+                    "type": "string"
+                },
+                "shangId": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "stop": {
+                    "type": "integer"
+                },
+                "to": {
+                    "type": "string"
+                },
+                "tradelog": {
+                    "type": "string"
+                },
+                "txid": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "charge.FaShang": {
+            "type": "object",
+            "properties": {
+                "contractaddr": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "endTime": {
+                    "description": "到期时间",
+                    "type": "string"
+                },
+                "fun": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "net": {
+                    "type": "integer"
+                },
+                "ptype": {
+                    "type": "string"
+                },
+                "shangId": {
+                    "type": "integer"
+                },
+                "to": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
         "config.AliyunOSS": {
             "type": "object",
             "properties": {
@@ -4944,39 +6659,6 @@
                 }
             }
         },
-        "config.Email": {
-            "type": "object",
-            "properties": {
-                "from": {
-                    "description": "收件人",
-                    "type": "string"
-                },
-                "host": {
-                    "description": "服务器地址",
-                    "type": "string"
-                },
-                "is-ssl": {
-                    "description": "是否SSL",
-                    "type": "boolean"
-                },
-                "nickname": {
-                    "description": "昵称",
-                    "type": "string"
-                },
-                "port": {
-                    "description": "端口",
-                    "type": "integer"
-                },
-                "secret": {
-                    "description": "密钥",
-                    "type": "string"
-                },
-                "to": {
-                    "description": "收件人:多个以英文逗号分隔",
-                    "type": "string"
-                }
-            }
-        },
         "config.Excel": {
             "type": "object",
             "properties": {
@@ -5050,6 +6732,11 @@
                     "description": "数据库名",
                     "type": "string"
                 },
+                "engine": {
+                    "description": "数据库引擎，默认InnoDB",
+                    "type": "string",
+                    "default": "InnoDB"
+                },
                 "log-mode": {
                     "description": "是否开启Gorm全局日志",
                     "type": "string"
@@ -5077,6 +6764,72 @@
                 "port": {
                     "description": ":端口",
                     "type": "string"
+                },
+                "prefix": {
+                    "description": "全局表前缀，单独定义TableName则不生效",
+                    "type": "string"
+                },
+                "singular": {
+                    "description": "是否开启全局禁用复数，true表示开启",
+                    "type": "boolean"
+                },
+                "username": {
+                    "description": "数据库用户名",
+                    "type": "string"
+                }
+            }
+        },
+        "config.Oracle": {
+            "type": "object",
+            "properties": {
+                "config": {
+                    "description": "高级配置",
+                    "type": "string"
+                },
+                "db-name": {
+                    "description": "数据库名",
+                    "type": "string"
+                },
+                "engine": {
+                    "description": "数据库引擎，默认InnoDB",
+                    "type": "string",
+                    "default": "InnoDB"
+                },
+                "log-mode": {
+                    "description": "是否开启Gorm全局日志",
+                    "type": "string"
+                },
+                "log-zap": {
+                    "description": "是否通过zap写入日志文件",
+                    "type": "boolean"
+                },
+                "max-idle-conns": {
+                    "description": "空闲中的最大连接数",
+                    "type": "integer"
+                },
+                "max-open-conns": {
+                    "description": "打开到数据库的最大连接数",
+                    "type": "integer"
+                },
+                "password": {
+                    "description": "数据库密码",
+                    "type": "string"
+                },
+                "path": {
+                    "description": "服务器地址:端口",
+                    "type": "string"
+                },
+                "port": {
+                    "description": ":端口",
+                    "type": "string"
+                },
+                "prefix": {
+                    "description": "全局表前缀，单独定义TableName则不生效",
+                    "type": "string"
+                },
+                "singular": {
+                    "description": "是否开启全局禁用复数，true表示开启",
+                    "type": "boolean"
                 },
                 "username": {
                     "description": "数据库用户名",
@@ -5095,6 +6848,11 @@
                     "description": "数据库名",
                     "type": "string"
                 },
+                "engine": {
+                    "description": "数据库引擎，默认InnoDB",
+                    "type": "string",
+                    "default": "InnoDB"
+                },
                 "log-mode": {
                     "description": "是否开启Gorm全局日志",
                     "type": "string"
@@ -5122,6 +6880,14 @@
                 "port": {
                     "description": ":端口",
                     "type": "string"
+                },
+                "prefix": {
+                    "description": "全局表前缀，单独定义TableName则不生效",
+                    "type": "string"
+                },
+                "singular": {
+                    "description": "是否开启全局禁用复数，true表示开启",
+                    "type": "boolean"
                 },
                 "username": {
                     "description": "数据库用户名",
@@ -5187,17 +6953,31 @@
                 },
                 "autocode": {
                     "description": "auto",
-                    "$ref": "#/definitions/config.Autocode"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.Autocode"
+                        }
+                    ]
                 },
                 "aws-s3": {
                     "$ref": "#/definitions/config.AwsS3"
                 },
+                "baosms": {
+                    "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.BaoSms"
+                },
                 "captcha": {
                     "$ref": "#/definitions/config.Captcha"
                 },
+                "cc": {
+                    "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.Cc"
+                },
                 "cors": {
                     "description": "跨域配置",
-                    "$ref": "#/definitions/config.CORS"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.CORS"
+                        }
+                    ]
                 },
                 "db-list": {
                     "type": "array",
@@ -5206,7 +6986,7 @@
                     }
                 },
                 "email": {
-                    "$ref": "#/definitions/config.Email"
+                    "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.Email"
                 },
                 "excel": {
                     "$ref": "#/definitions/config.Excel"
@@ -5219,11 +6999,22 @@
                 },
                 "local": {
                     "description": "oss",
-                    "$ref": "#/definitions/config.Local"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.Local"
+                        }
+                    ]
                 },
                 "mysql": {
                     "description": "gorm",
-                    "$ref": "#/definitions/config.Mysql"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.Mysql"
+                        }
+                    ]
+                },
+                "oracle": {
+                    "$ref": "#/definitions/config.Oracle"
                 },
                 "pgsql": {
                     "$ref": "#/definitions/config.Pgsql"
@@ -5265,6 +7056,11 @@
                 "disable": {
                     "type": "boolean"
                 },
+                "engine": {
+                    "description": "数据库引擎，默认InnoDB",
+                    "type": "string",
+                    "default": "InnoDB"
+                },
                 "log-mode": {
                     "description": "是否开启Gorm全局日志",
                     "type": "string"
@@ -5292,6 +7088,14 @@
                 "port": {
                     "description": ":端口",
                     "type": "string"
+                },
+                "prefix": {
+                    "description": "全局表前缀，单独定义TableName则不生效",
+                    "type": "string"
+                },
+                "singular": {
+                    "description": "是否开启全局禁用复数，true表示开启",
+                    "type": "boolean"
                 },
                 "type": {
                     "type": "string"
@@ -5445,7 +7249,11 @@
                 },
                 "sysUser": {
                     "description": "管理详情",
-                    "$ref": "#/definitions/system.SysUser"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/system.SysUser"
+                        }
+                    ]
                 },
                 "sysUserAuthorityID": {
                     "description": "管理角色ID",
@@ -5570,6 +7378,64 @@
                     "items": {
                         "$ref": "#/definitions/system.SysBaseMenu"
                     }
+                }
+            }
+        },
+        "github_com_flipped-aurora_gin-vue-admin_server_config.BaoSms": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "description": "密码",
+                    "type": "string"
+                },
+                "sign": {
+                    "type": "string"
+                },
+                "username": {
+                    "description": "账号",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_flipped-aurora_gin-vue-admin_server_config.Cc": {
+            "type": "object",
+            "properties": {
+                "curl": {
+                    "description": "域名",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_flipped-aurora_gin-vue-admin_server_config.Email": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "description": "收件人",
+                    "type": "string"
+                },
+                "host": {
+                    "description": "服务器地址",
+                    "type": "string"
+                },
+                "is-ssl": {
+                    "description": "是否SSL",
+                    "type": "boolean"
+                },
+                "nickname": {
+                    "description": "昵称",
+                    "type": "string"
+                },
+                "port": {
+                    "description": "端口",
+                    "type": "integer"
+                },
+                "secret": {
+                    "description": "密钥",
+                    "type": "string"
+                },
+                "to": {
+                    "description": "收件人:多个以英文逗号分隔",
+                    "type": "string"
                 }
             }
         },
@@ -5736,28 +7602,40 @@
             "type": "object",
             "properties": {
                 "authorityId": {
-                    "type": "integer"
+                    "type": "string",
+                    "example": "int 角色id"
                 },
                 "authorityIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
+                    "type": "string",
+                    "example": "[]uint 角色id"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "电子邮箱"
                 },
                 "enable": {
-                    "type": "integer"
+                    "type": "string",
+                    "example": "int 是否启用"
                 },
                 "headerImg": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "头像链接"
                 },
                 "nickName": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "昵称"
                 },
                 "passWord": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "密码"
+                },
+                "phone": {
+                    "type": "string",
+                    "example": "电话号码"
                 },
                 "userName": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "用户名"
                 }
             }
         },
@@ -5983,6 +7861,9 @@
                 "data": {},
                 "msg": {
                     "type": "string"
+                },
+                "time": {
+                    "type": "integer"
                 }
             }
         },
@@ -6115,6 +7996,10 @@
                     "description": "是否自动移动文件",
                     "type": "boolean"
                 },
+                "businessDB": {
+                    "description": "业务数据库",
+                    "type": "string"
+                },
                 "description": {
                     "description": "Struct中文名称",
                     "type": "string"
@@ -6199,6 +8084,38 @@
                 "require": {
                     "description": "是否必填",
                     "type": "boolean"
+                },
+                "sort": {
+                    "description": "是否增加排序",
+                    "type": "boolean"
+                }
+            }
+        },
+        "system.Meta": {
+            "type": "object",
+            "properties": {
+                "activeName": {
+                    "type": "string"
+                },
+                "closeTab": {
+                    "description": "自动关闭tab",
+                    "type": "boolean"
+                },
+                "defaultMenu": {
+                    "description": "是否是基础路由（开发中）",
+                    "type": "boolean"
+                },
+                "icon": {
+                    "description": "菜单图标",
+                    "type": "string"
+                },
+                "keepAlive": {
+                    "description": "是否缓存",
+                    "type": "boolean"
+                },
+                "title": {
+                    "description": "菜单名",
+                    "type": "string"
                 }
             }
         },
@@ -6326,10 +8243,6 @@
                         "$ref": "#/definitions/system.SysBaseMenu"
                     }
                 },
-                "closeTab": {
-                    "description": "自动关闭tab",
-                    "type": "boolean"
-                },
                 "component": {
                     "description": "对应前端文件路径",
                     "type": "string"
@@ -6338,31 +8251,27 @@
                     "description": "创建时间",
                     "type": "string"
                 },
-                "defaultMenu": {
-                    "description": "是否是基础路由（开发中）",
-                    "type": "boolean"
-                },
                 "hidden": {
                     "description": "是否在列表隐藏",
                     "type": "boolean"
                 },
-                "icon": {
-                    "description": "菜单图标",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
-                },
-                "keepAlive": {
-                    "description": "是否缓存",
-                    "type": "boolean"
                 },
                 "menuBtn": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/system.SysBaseMenuBtn"
                     }
+                },
+                "meta": {
+                    "description": "附加属性",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/system.Meta"
+                        }
+                    ]
                 },
                 "name": {
                     "description": "路由name",
@@ -6385,10 +8294,6 @@
                 "sort": {
                     "description": "排序标记",
                     "type": "integer"
-                },
-                "title": {
-                    "description": "菜单名",
-                    "type": "string"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -6551,10 +8456,6 @@
                         "$ref": "#/definitions/system.SysMenu"
                     }
                 },
-                "closeTab": {
-                    "description": "自动关闭tab",
-                    "type": "boolean"
-                },
                 "component": {
                     "description": "对应前端文件路径",
                     "type": "string"
@@ -6563,25 +8464,13 @@
                     "description": "创建时间",
                     "type": "string"
                 },
-                "defaultMenu": {
-                    "description": "是否是基础路由（开发中）",
-                    "type": "boolean"
-                },
                 "hidden": {
                     "description": "是否在列表隐藏",
                     "type": "boolean"
                 },
-                "icon": {
-                    "description": "菜单图标",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
-                },
-                "keepAlive": {
-                    "description": "是否缓存",
-                    "type": "boolean"
                 },
                 "menuBtn": {
                     "type": "array",
@@ -6591,6 +8480,14 @@
                 },
                 "menuId": {
                     "type": "string"
+                },
+                "meta": {
+                    "description": "附加属性",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/system.Meta"
+                        }
+                    ]
                 },
                 "name": {
                     "description": "路由name",
@@ -6613,10 +8510,6 @@
                 "sort": {
                     "description": "排序标记",
                     "type": "integer"
-                },
-                "title": {
-                    "description": "菜单名",
-                    "type": "string"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -6759,6 +8652,149 @@
             "properties": {
                 "config": {
                     "$ref": "#/definitions/config.Server"
+                }
+            }
+        },
+        "video.VideoDetails": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "groupId": {
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "typeId": {
+                    "type": "integer"
+                },
+                "typeId1": {
+                    "type": "integer"
+                },
+                "typeName": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "vodActor": {
+                    "type": "string"
+                },
+                "vodArea": {
+                    "type": "string"
+                },
+                "vodBehind": {
+                    "type": "string"
+                },
+                "vodBlurb": {
+                    "type": "string"
+                },
+                "vodClass": {
+                    "type": "string"
+                },
+                "vodContent": {
+                    "type": "string"
+                },
+                "vodDirector": {
+                    "type": "string"
+                },
+                "vodDoubanId": {
+                    "type": "integer"
+                },
+                "vodDoubanScore": {
+                    "type": "string"
+                },
+                "vodDown": {
+                    "type": "integer"
+                },
+                "vodDuration": {
+                    "type": "string"
+                },
+                "vodEn": {
+                    "type": "string"
+                },
+                "vodHits": {
+                    "type": "integer"
+                },
+                "vodHitsDay": {
+                    "type": "integer"
+                },
+                "vodHitsMonth": {
+                    "type": "integer"
+                },
+                "vodHitsWeek": {
+                    "type": "integer"
+                },
+                "vodId": {
+                    "type": "integer"
+                },
+                "vodLang": {
+                    "type": "string"
+                },
+                "vodLetter": {
+                    "type": "string"
+                },
+                "vodName": {
+                    "type": "string"
+                },
+                "vodPic": {
+                    "type": "string"
+                },
+                "vodPicScreenshot": {
+                    "type": "string"
+                },
+                "vodPlayUrl": {
+                    "type": "string"
+                },
+                "vodPubdate": {
+                    "type": "string"
+                },
+                "vodRemarks": {
+                    "type": "string"
+                },
+                "vodScore": {
+                    "type": "string"
+                },
+                "vodScoreAll": {
+                    "type": "integer"
+                },
+                "vodScoreNum": {
+                    "type": "integer"
+                },
+                "vodSerial": {
+                    "type": "string"
+                },
+                "vodStatus": {
+                    "type": "boolean"
+                },
+                "vodSub": {
+                    "type": "string"
+                },
+                "vodTag": {
+                    "type": "string"
+                },
+                "vodTime": {
+                    "type": "string"
+                },
+                "vodTimeAdd": {
+                    "type": "integer"
+                },
+                "vodTotal": {
+                    "type": "integer"
+                },
+                "vodUp": {
+                    "type": "integer"
+                },
+                "vodWriter": {
+                    "type": "string"
+                },
+                "vodYear": {
+                    "type": "string"
                 }
             }
         }

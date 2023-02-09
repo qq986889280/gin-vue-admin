@@ -80,7 +80,7 @@ func (p *PayApi) GetFaShangList(c *gin.Context) {
 // @Summary 充值订单检查
 // @Produce  application/json
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"发送成功"}"
-// @Router /pay/routerName [post]
+// @Router /pay/ChargeCheck [post]
 func (p *PayApi) ChargeCheck(c *gin.Context) {
 	service.ServiceGroupApp.PayService.ChargeNotice()
 	response.Ok(c)
