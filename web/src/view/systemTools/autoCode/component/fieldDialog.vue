@@ -66,10 +66,11 @@
         </el-select>
       </el-form-item>
       <el-form-item label="关联字典" prop="dictType">
+        <!-- :disabled="middleDate.fieldType!=='int'" -->
         <el-select
           v-model="middleDate.dictType"
           style="width:100%"
-          :disabled="middleDate.fieldType!=='int'"
+
           placeholder="请选择字典"
           clearable
         >
