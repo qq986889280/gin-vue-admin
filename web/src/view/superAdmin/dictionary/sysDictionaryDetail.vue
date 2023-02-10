@@ -87,6 +87,14 @@
           />
         </el-form-item>
         <el-form-item label="字典值" prop="value">
+          <el-input
+            v-model="formData.value"
+            placeholder="请输入字典值"
+            clearable
+            :style="{width: '100%'}"
+          />
+        </el-form-item>
+        <!-- <el-form-item label="字典值" prop="value">
           <el-input-number
             v-model.number="formData.value"
             step-strictly
@@ -95,7 +103,7 @@
             clearable
             :style="{width: '100%'}"
           />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="启用状态" prop="status" required>
           <el-switch v-model="formData.status" active-text="开启" inactive-text="停用" />
         </el-form-item>

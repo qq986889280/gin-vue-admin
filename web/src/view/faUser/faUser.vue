@@ -123,18 +123,25 @@
           <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
 
-        <el-table-column align="left" label="组别ID" prop="groupId" width="120" />
+        <!-- <el-table-column align="left" label="组别ID" prop="groupId" width="120" /> -->
         <el-table-column align="left" label="用户名" prop="username" width="120" />
         <el-table-column align="left" label="昵称" prop="nickname" width="120" />
+        <el-table-column align="left" label="头像" min-width="75">
+          <template #default="scope">
+            <CustomPic style="margin-top:8px" :pic-src="scope.row.avatar" />
+          </template>
+        </el-table-column>
         <!-- <el-table-column align="left" label="密码" prop="password" width="120" /> -->
         <!-- <el-table-column align="left" label="支付密码" prop="password2" width="120" /> -->
         <!-- <el-table-column align="left" label="谷歌秘钥" prop="password3" width="120" /> -->
         <!-- <el-table-column align="left" label="密码盐" prop="salt" width="120" /> -->
         <el-table-column align="left" label="电子邮箱" prop="email" width="120" />
         <el-table-column align="left" label="手机号" prop="mobile" width="120" />
-        <el-table-column align="left" label="头像" prop="avatar" width="120" />
+        <!-- <el-table-column align="left" label="头像" prop="avatar" width="120" /> -->
+
+        <!-- <el-table-column align="left" label="等级" prop="level" width="120" /> -->
         <el-table-column align="left" label="等级" prop="level" width="120">
-          <template #default="scope">{{ formatBoolean(scope.row.level) }}</template>
+          <template #default="scope">{{ scope.row.FaUserLevel.name }}</template>
         </el-table-column>
         <el-table-column align="left" label="性别" prop="gender" width="120">
           <template #default="scope">{{ formatBoolean(scope.row.gender) }}</template>
@@ -266,11 +273,17 @@
         <el-form-item label="手机号:" prop="mobile">
           <el-input v-model="formData.mobile" :clearable="true" placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="头像:" prop="avatar">
-          <el-input v-model="formData.avatar" :clearable="true" placeholder="请输入" />
+        <el-form-item label="头像">
+          <div style="display:inline-block" @click="openHeaderChange">
+            <img v-if="formData.avatar" class="header-img-box" :src="(formData.avatar && formData.avatar.slice(0, 4) !== 'http')?path+formData.avatar:formData.avatar">
+            <div v-else class="header-img-box">从媒体库选择</div>
+          </div>
         </el-form-item>
+        <!-- <el-form-item label="头像:" prop="avatar">
+          <el-input v-model="formData.avatar" :clearable="true" placeholder="请输入" />
+        </el-form-item> -->
         <el-form-item label="等级:" prop="level">
-          <el-input v-model="formData.level" :clearable="true" placeholder="请输入" />
+          <el-input-number v-model="formData.level" :clearable="true" placeholder="请输入" />
         </el-form-item>
         <!-- <el-form-item label="性别:" prop="gender">
           <el-switch v-model="formData.gender" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable />
@@ -515,6 +528,7 @@
         </div>
       </template>
     </el-dialog>
+    <ChooseImg ref="chooseImg" :target="formData" :target-key="`avatar`" />
   </div>
 </template>
 
@@ -533,12 +547,13 @@ import {
   findFaUser,
   getFaUserList
 } from '@/api/faUser'
-
+import CustomPic from '@/components/customPic/index.vue'
+import ChooseImg from '@/components/chooseImg/index.vue'
 // 全量引入格式化工具 请按需保留
 import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { nextTick, ref, reactive } from 'vue'
-
+const path = ref(import.meta.env.VITE_BASE_API + '/')
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
   groupId: 0,
@@ -810,7 +825,7 @@ const closeDialog = () => {
     email: '',
     mobile: '',
     avatar: '',
-    level: false,
+    level: 1,
     gender: false,
     birthday: new Date(),
     bio: '',
@@ -918,7 +933,39 @@ const switchEnable = async(row) => {
     await getTableData()
   }
 }
+
+const chooseImg = ref(null)
+const openHeaderChange = () => {
+  chooseImg.value.open()
+}
 </script>
 
 <style>
+ .header-img-box {
+  width: 200px;
+  height: 200px;
+  border: 1px dashed #ccc;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 200px;
+  cursor: pointer;
+}
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+  .avatar-uploader-icon {
+    border: 1px dashed #d9d9d9 !important;
+    border-radius: 6px;
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 </style>

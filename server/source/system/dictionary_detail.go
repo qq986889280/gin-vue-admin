@@ -3,6 +3,7 @@ package system
 import (
 	"context"
 	"fmt"
+
 	sysModel "github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
 	"github.com/pkg/errors"
@@ -48,48 +49,48 @@ func (i *initDictDetail) InitializeData(ctx context.Context) (context.Context, e
 		return ctx, errors.Wrap(system.ErrMissingDependentContext,
 			fmt.Sprintf("未找到 %s 表初始化数据", sysModel.SysDictionary{}.TableName()))
 	}
-	True := true
-	dicts[0].SysDictionaryDetails = []sysModel.SysDictionaryDetail{
-		{Label: "男", Value: 1, Status: &True, Sort: 1},
-		{Label: "女", Value: 2, Status: &True, Sort: 2},
-	}
+	// True := true
+	// dicts[0].SysDictionaryDetails = []sysModel.SysDictionaryDetail{
+	// 	{Label: "男", Value: 1, Status: &True, Sort: 1},
+	// 	{Label: "女", Value: 2, Status: &True, Sort: 2},
+	// }
 
-	dicts[1].SysDictionaryDetails = []sysModel.SysDictionaryDetail{
-		{Label: "smallint", Value: 1, Status: &True, Sort: 1},
-		{Label: "mediumint", Value: 2, Status: &True, Sort: 2},
-		{Label: "int", Value: 3, Status: &True, Sort: 3},
-		{Label: "bigint", Value: 4, Status: &True, Sort: 4},
-	}
+	// dicts[1].SysDictionaryDetails = []sysModel.SysDictionaryDetail{
+	// 	{Label: "smallint", Value: 1, Status: &True, Sort: 1},
+	// 	{Label: "mediumint", Value: 2, Status: &True, Sort: 2},
+	// 	{Label: "int", Value: 3, Status: &True, Sort: 3},
+	// 	{Label: "bigint", Value: 4, Status: &True, Sort: 4},
+	// }
 
-	dicts[2].SysDictionaryDetails = []sysModel.SysDictionaryDetail{
-		{Label: "date", Status: &True},
-		{Label: "time", Value: 1, Status: &True, Sort: 1},
-		{Label: "year", Value: 2, Status: &True, Sort: 2},
-		{Label: "datetime", Value: 3, Status: &True, Sort: 3},
-		{Label: "timestamp", Value: 5, Status: &True, Sort: 5},
-	}
-	dicts[3].SysDictionaryDetails = []sysModel.SysDictionaryDetail{
-		{Label: "float", Status: &True},
-		{Label: "double", Value: 1, Status: &True, Sort: 1},
-		{Label: "decimal", Value: 2, Status: &True, Sort: 2},
-	}
+	// dicts[2].SysDictionaryDetails = []sysModel.SysDictionaryDetail{
+	// 	{Label: "date", Status: &True},
+	// 	{Label: "time", Value: 1, Status: &True, Sort: 1},
+	// 	{Label: "year", Value: 2, Status: &True, Sort: 2},
+	// 	{Label: "datetime", Value: 3, Status: &True, Sort: 3},
+	// 	{Label: "timestamp", Value: 5, Status: &True, Sort: 5},
+	// }
+	// dicts[3].SysDictionaryDetails = []sysModel.SysDictionaryDetail{
+	// 	{Label: "float", Status: &True},
+	// 	{Label: "double", Value: 1, Status: &True, Sort: 1},
+	// 	{Label: "decimal", Value: 2, Status: &True, Sort: 2},
+	// }
 
-	dicts[4].SysDictionaryDetails = []sysModel.SysDictionaryDetail{
-		{Label: "char", Status: &True},
-		{Label: "varchar", Value: 1, Status: &True, Sort: 1},
-		{Label: "tinyblob", Value: 2, Status: &True, Sort: 2},
-		{Label: "tinytext", Value: 3, Status: &True, Sort: 3},
-		{Label: "text", Value: 4, Status: &True, Sort: 4},
-		{Label: "blob", Value: 5, Status: &True, Sort: 5},
-		{Label: "mediumblob", Value: 6, Status: &True, Sort: 6},
-		{Label: "mediumtext", Value: 7, Status: &True, Sort: 7},
-		{Label: "longblob", Value: 8, Status: &True, Sort: 8},
-		{Label: "longtext", Value: 9, Status: &True, Sort: 9},
-	}
+	// dicts[4].SysDictionaryDetails = []sysModel.SysDictionaryDetail{
+	// 	{Label: "char", Status: &True},
+	// 	{Label: "varchar", Value: 1, Status: &True, Sort: 1},
+	// 	{Label: "tinyblob", Value: 2, Status: &True, Sort: 2},
+	// 	{Label: "tinytext", Value: 3, Status: &True, Sort: 3},
+	// 	{Label: "text", Value: 4, Status: &True, Sort: 4},
+	// 	{Label: "blob", Value: 5, Status: &True, Sort: 5},
+	// 	{Label: "mediumblob", Value: 6, Status: &True, Sort: 6},
+	// 	{Label: "mediumtext", Value: 7, Status: &True, Sort: 7},
+	// 	{Label: "longblob", Value: 8, Status: &True, Sort: 8},
+	// 	{Label: "longtext", Value: 9, Status: &True, Sort: 9},
+	// }
 
-	dicts[5].SysDictionaryDetails = []sysModel.SysDictionaryDetail{
-		{Label: "tinyint", Status: &True},
-	}
+	// dicts[5].SysDictionaryDetails = []sysModel.SysDictionaryDetail{
+	// 	{Label: "tinyint", Status: &True},
+	// }
 	for _, dict := range dicts {
 		if err := db.Model(&dict).Association("SysDictionaryDetails").
 			Replace(dict.SysDictionaryDetails); err != nil {
