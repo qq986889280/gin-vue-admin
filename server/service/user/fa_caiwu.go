@@ -1,6 +1,7 @@
 package user
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
@@ -96,4 +97,38 @@ func (faCaiwuService *FaCaiwuService) GetFaCaiwuInfoList(info userReq.FaCaiwuSea
 
 	fmt.Println(price)
 	return faCaiwus, total, price, err
+}
+
+// Caiwu  记录财务
+// Author [piexlmax](https://github.com/piexlmax)
+func (faCaiwuService *FaCaiwuService) Caiwu(Userid int, Price float64, Ptype string, Typec string, Msg string) (err error) {
+	// 记录财务
+	var nowuser user.FaUser
+	if err = global.GVA_DB.Where("id = ?", Userid).First(&nowuser).Error; err != nil {
+		return
+	}
+	//更新 map
+	updateinfo := make(map[string]interface{})
+	data, _ := json.Marshal(&nowuser)
+	//用户信息 map
+	userinfo := make(map[string]interface{})
+	json.Unmarshal(data, &userinfo)
+	var yprice, cal float64
+
+	yprice = userinfo[Ptype].(float64)
+	cal = yprice + Price
+	updateinfo[Ptype] = cal
+	var record = user.FaCaiwu{
+		UserId:  &Userid,
+		Account: nowuser.Username,
+		Yprice:  &yprice,
+		Price:   &Price,
+		Nprice:  &cal,
+		Memo:    Msg,
+		Type:    Typec,
+		Ptype:   Ptype,
+	}
+	global.GVA_DB.Create(&record)                                //记录财务
+	err = global.GVA_DB.Model(nowuser).Updates(updateinfo).Error //更新userinfo
+	return err
 }

@@ -418,8 +418,6 @@ definitions:
         $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.BaoSms'
       captcha:
         $ref: '#/definitions/config.Captcha'
-      cc:
-        $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.Cc'
       cors:
         allOf:
         - $ref: '#/definitions/config.CORS'
@@ -713,12 +711,6 @@ definitions:
         description: 账号
         type: string
     type: object
-  github_com_flipped-aurora_gin-vue-admin_server_config.Cc:
-    properties:
-      curl:
-        description: 域名
-        type: string
-    type: object
   github_com_flipped-aurora_gin-vue-admin_server_config.Email:
     properties:
       from:
@@ -741,6 +733,21 @@ definitions:
         type: string
       to:
         description: 收件人:多个以英文逗号分隔
+        type: string
+    type: object
+  github_com_flipped-aurora_gin-vue-admin_server_plugin_ucenter_model.Request:
+    properties:
+      captcha:
+        description: 验证码
+        type: string
+      captchaId:
+        description: 验证码ID
+        type: string
+      password:
+        description: 密码
+        type: string
+      username:
+        description: 用户名
         type: string
     type: object
   request.AddMenuAuthorityInfo:
@@ -1432,7 +1439,7 @@ definitions:
         type: string
       value:
         description: 字典值
-        type: integer
+        type: string
     type: object
   system.SysMenu:
     properties:
@@ -1590,6 +1597,230 @@ definitions:
       config:
         $ref: '#/definitions/config.Server'
     type: object
+  user.FaCaiwu:
+    properties:
+      account:
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      memo:
+        type: string
+      nprice:
+        type: number
+      orderId:
+        type: string
+      price:
+        type: number
+      ptype:
+        type: string
+      type:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        type: integer
+      yprice:
+        type: number
+    type: object
+  user.FaUser:
+    properties:
+      B1total:
+        type: number
+      B1yest:
+        type: number
+      B2total:
+        type: number
+      B2yest:
+        type: number
+      B3total:
+        type: number
+      B3yest:
+        type: number
+      S1:
+        type: number
+      S2:
+        type: number
+      avatar:
+        type: string
+      bio:
+        type: string
+      birthday:
+        type: string
+      card1:
+        type: string
+      card2:
+        type: string
+      card3:
+        type: string
+      children:
+        items:
+          $ref: '#/definitions/user.FaUser'
+        type: array
+      createdAt:
+        description: 创建时间
+        type: string
+      email:
+        type: string
+      faUserLevel:
+        $ref: '#/definitions/user.FaUserLevel'
+      gender:
+        type: boolean
+      groupId:
+        type: integer
+      gryj:
+        type: integer
+      id:
+        description: 主键ID
+        type: integer
+      idcard:
+        type: string
+      isAgent:
+        type: string
+      isB:
+        type: string
+      isSim:
+        type: string
+      isSm:
+        type: string
+      jointime:
+        type: integer
+      level:
+        type: integer
+      loginfailure:
+        type: boolean
+      loginip:
+        type: string
+      logintime:
+        type: integer
+      mobile:
+        type: string
+      nickname:
+        type: string
+      password:
+        type: string
+      password2:
+        type: string
+      password3:
+        type: string
+      realname:
+        type: string
+      salt:
+        type: string
+      status:
+        type: integer
+      suan:
+        type: string
+      suan2:
+        type: string
+      sw1:
+        type: integer
+      sw2:
+        type: integer
+      sw3:
+        type: integer
+      sw4:
+        type: integer
+      sw5:
+        type: integer
+      sw6:
+        type: integer
+      tdnum:
+        type: integer
+      tdyj:
+        type: integer
+      tgno:
+        type: string
+      times:
+        type: integer
+      tjid:
+        type: integer
+      tjuser:
+        type: string
+      todayzt:
+        type: integer
+      tpath:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+      username:
+        type: string
+      viptime:
+        type: integer
+      wall1:
+        type: number
+      wall1freeze:
+        type: number
+      wall2:
+        type: number
+      wall2freeze:
+        type: number
+      wall3:
+        type: number
+      wall3freeze:
+        type: number
+      wall4:
+        type: number
+      wall4freeze:
+        type: number
+      wall5:
+        type: number
+      wall5freeze:
+        type: number
+      wall6:
+        type: number
+      wall6freeze:
+        type: number
+      wall7:
+        type: number
+      wall7freeze:
+        type: number
+      wall8:
+        type: number
+      wall8freeze:
+        type: number
+      wall9:
+        type: number
+      wall9freeze:
+        type: number
+      wall10:
+        type: number
+      wall10freeze:
+        type: number
+      win:
+        type: string
+      ztlevel:
+        type: string
+      ztnum:
+        type: integer
+    type: object
+  user.FaUserLevel:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      n1:
+        type: integer
+      name:
+        type: string
+      rate:
+        type: number
+      tdnum:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      ztnum:
+        type: integer
+    type: object
   video.VideoDetails:
     properties:
       createdAt:
@@ -1688,10 +1919,29 @@ definitions:
     type: object
 info:
   contact: {}
-  description: api文档在线调试
-  title: Swagger API
-  version: "1"
+  description: This is a sample Server pets
+  title: Swagger Example API
+  version: 0.0.1
 paths:
+  /Ucenter/Login:
+    post:
+      parameters:
+      - description: 用户名, 密码, 验证码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_plugin_ucenter_model.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"发送成功"}'
+          schema:
+            type: string
+      summary: 登录
+      tags:
+      - Ucenter
   /api/createApi:
     post:
       consumes:
@@ -2619,18 +2869,6 @@ paths:
       summary: 获取权限列表
       tags:
       - Casbin
-  /cc/routerName:
-    post:
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"发送成功"}'
-          schema:
-            type: string
-      summary: 请手动填写接口功能
-      tags:
-      - Cc
   /customer/customer:
     delete:
       consumes:
@@ -2924,6 +3162,234 @@ paths:
       summary: 加载Excel数据
       tags:
       - excel
+  /faCaiwu/createFaCaiwu:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建FaCaiwu
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.FaCaiwu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建FaCaiwu
+      tags:
+      - FaCaiwu
+  /faCaiwu/deleteFaCaiwu:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除FaCaiwu
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.FaCaiwu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除FaCaiwu
+      tags:
+      - FaCaiwu
+  /faCaiwu/deleteFaCaiwuByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除FaCaiwu
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除FaCaiwu
+      tags:
+      - FaCaiwu
+  /faCaiwu/findFaCaiwu:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: account
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: memo
+        type: string
+      - in: query
+        name: nprice
+        type: number
+      - in: query
+        name: orderId
+        type: string
+      - in: query
+        name: price
+        type: number
+      - in: query
+        name: ptype
+        type: string
+      - in: query
+        name: type
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      - in: query
+        name: yprice
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询FaCaiwu
+      tags:
+      - FaCaiwu
+  /faCaiwu/getFaCaiwuList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: account
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: memo
+        type: string
+      - in: query
+        name: nprice
+        type: number
+      - in: query
+        name: order
+        type: string
+      - in: query
+        name: orderId
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: price
+        type: number
+      - in: query
+        name: ptype
+        type: string
+      - in: query
+        name: sort
+        type: string
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: type
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      - in: query
+        name: yprice
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取FaCaiwu列表
+      tags:
+      - FaCaiwu
+  /faCaiwu/updateFaCaiwu:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新FaCaiwu
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.FaCaiwu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新FaCaiwu
+      tags:
+      - FaCaiwu
   /faCharge/createFaCharge:
     post:
       consumes:
@@ -3436,6 +3902,904 @@ paths:
       summary: 更新FaShang
       tags:
       - FaShang
+  /faUser/UserCharge:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: msg
+        type: string
+      - in: query
+        name: price
+        type: number
+      - in: query
+        name: ptype
+        type: string
+      - in: query
+        name: typec
+        type: string
+      - in: query
+        name: userid
+        type: integer
+      - in: query
+        name: username
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 后台充值
+      tags:
+      - FaUser
+  /faUser/UserTeam:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: msg
+        type: string
+      - in: query
+        name: price
+        type: number
+      - in: query
+        name: ptype
+        type: string
+      - in: query
+        name: typec
+        type: string
+      - in: query
+        name: userid
+        type: integer
+      - in: query
+        name: username
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 后台查看团队
+      tags:
+      - FaUser
+  /faUser/createFaUser:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建FaUser
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.FaUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建FaUser
+      tags:
+      - FaUser
+  /faUser/deleteFaUser:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除FaUser
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.FaUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除FaUser
+      tags:
+      - FaUser
+  /faUser/deleteFaUserByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除FaUser
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除FaUser
+      tags:
+      - FaUser
+  /faUser/findFaUser:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: B1total
+        type: number
+      - in: query
+        name: B1yest
+        type: number
+      - in: query
+        name: B2total
+        type: number
+      - in: query
+        name: B2yest
+        type: number
+      - in: query
+        name: B3total
+        type: number
+      - in: query
+        name: B3yest
+        type: number
+      - in: query
+        name: S1
+        type: number
+      - in: query
+        name: S2
+        type: number
+      - in: query
+        name: avatar
+        type: string
+      - in: query
+        name: bio
+        type: string
+      - in: query
+        name: birthday
+        type: string
+      - in: query
+        name: card1
+        type: string
+      - in: query
+        name: card2
+        type: string
+      - in: query
+        name: card3
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: email
+        type: string
+      - in: query
+        name: gender
+        type: boolean
+      - in: query
+        name: groupId
+        type: integer
+      - in: query
+        name: gryj
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: idcard
+        type: string
+      - in: query
+        name: isAgent
+        type: string
+      - in: query
+        name: isB
+        type: string
+      - in: query
+        name: isSim
+        type: string
+      - in: query
+        name: isSm
+        type: string
+      - in: query
+        name: jointime
+        type: integer
+      - in: query
+        name: level
+        type: integer
+      - in: query
+        name: loginfailure
+        type: boolean
+      - in: query
+        name: loginip
+        type: string
+      - in: query
+        name: logintime
+        type: integer
+      - in: query
+        name: mobile
+        type: string
+      - in: query
+        name: nickname
+        type: string
+      - in: query
+        name: password
+        type: string
+      - in: query
+        name: password2
+        type: string
+      - in: query
+        name: password3
+        type: string
+      - in: query
+        name: realname
+        type: string
+      - in: query
+        name: salt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: suan
+        type: string
+      - in: query
+        name: suan2
+        type: string
+      - in: query
+        name: sw1
+        type: integer
+      - in: query
+        name: sw2
+        type: integer
+      - in: query
+        name: sw3
+        type: integer
+      - in: query
+        name: sw4
+        type: integer
+      - in: query
+        name: sw5
+        type: integer
+      - in: query
+        name: sw6
+        type: integer
+      - in: query
+        name: tdnum
+        type: integer
+      - in: query
+        name: tdyj
+        type: integer
+      - in: query
+        name: tgno
+        type: string
+      - in: query
+        name: times
+        type: integer
+      - in: query
+        name: tjid
+        type: integer
+      - in: query
+        name: tjuser
+        type: string
+      - in: query
+        name: todayzt
+        type: integer
+      - in: query
+        name: tpath
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: username
+        type: string
+      - in: query
+        name: viptime
+        type: integer
+      - in: query
+        name: wall1
+        type: number
+      - in: query
+        name: wall10
+        type: number
+      - in: query
+        name: wall10freeze
+        type: number
+      - in: query
+        name: wall1freeze
+        type: number
+      - in: query
+        name: wall2
+        type: number
+      - in: query
+        name: wall2freeze
+        type: number
+      - in: query
+        name: wall3
+        type: number
+      - in: query
+        name: wall3freeze
+        type: number
+      - in: query
+        name: wall4
+        type: number
+      - in: query
+        name: wall4freeze
+        type: number
+      - in: query
+        name: wall5
+        type: number
+      - in: query
+        name: wall5freeze
+        type: number
+      - in: query
+        name: wall6
+        type: number
+      - in: query
+        name: wall6freeze
+        type: number
+      - in: query
+        name: wall7
+        type: number
+      - in: query
+        name: wall7freeze
+        type: number
+      - in: query
+        name: wall8
+        type: number
+      - in: query
+        name: wall8freeze
+        type: number
+      - in: query
+        name: wall9
+        type: number
+      - in: query
+        name: wall9freeze
+        type: number
+      - in: query
+        name: win
+        type: string
+      - in: query
+        name: ztlevel
+        type: string
+      - in: query
+        name: ztnum
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询FaUser
+      tags:
+      - FaUser
+  /faUser/getFaUserList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: B1total
+        type: number
+      - in: query
+        name: B1yest
+        type: number
+      - in: query
+        name: B2total
+        type: number
+      - in: query
+        name: B2yest
+        type: number
+      - in: query
+        name: B3total
+        type: number
+      - in: query
+        name: B3yest
+        type: number
+      - in: query
+        name: S1
+        type: number
+      - in: query
+        name: S2
+        type: number
+      - in: query
+        name: avatar
+        type: string
+      - in: query
+        name: bio
+        type: string
+      - in: query
+        name: birthday
+        type: string
+      - in: query
+        name: card1
+        type: string
+      - in: query
+        name: card2
+        type: string
+      - in: query
+        name: card3
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: email
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - in: query
+        name: gender
+        type: boolean
+      - in: query
+        name: groupId
+        type: integer
+      - in: query
+        name: gryj
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: idcard
+        type: string
+      - in: query
+        name: isAgent
+        type: string
+      - in: query
+        name: isB
+        type: string
+      - in: query
+        name: isSim
+        type: string
+      - in: query
+        name: isSm
+        type: string
+      - in: query
+        name: jointime
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: level
+        type: integer
+      - in: query
+        name: loginfailure
+        type: boolean
+      - in: query
+        name: loginip
+        type: string
+      - in: query
+        name: logintime
+        type: integer
+      - in: query
+        name: mobile
+        type: string
+      - in: query
+        name: nickname
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: password
+        type: string
+      - in: query
+        name: password2
+        type: string
+      - in: query
+        name: password3
+        type: string
+      - in: query
+        name: realname
+        type: string
+      - in: query
+        name: salt
+        type: string
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: suan
+        type: string
+      - in: query
+        name: suan2
+        type: string
+      - in: query
+        name: sw1
+        type: integer
+      - in: query
+        name: sw2
+        type: integer
+      - in: query
+        name: sw3
+        type: integer
+      - in: query
+        name: sw4
+        type: integer
+      - in: query
+        name: sw5
+        type: integer
+      - in: query
+        name: sw6
+        type: integer
+      - in: query
+        name: tdnum
+        type: integer
+      - in: query
+        name: tdyj
+        type: integer
+      - in: query
+        name: tgno
+        type: string
+      - in: query
+        name: times
+        type: integer
+      - in: query
+        name: tjid
+        type: integer
+      - in: query
+        name: tjuser
+        type: string
+      - in: query
+        name: todayzt
+        type: integer
+      - in: query
+        name: tpath
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: username
+        type: string
+      - in: query
+        name: viptime
+        type: integer
+      - in: query
+        name: wall1
+        type: number
+      - in: query
+        name: wall10
+        type: number
+      - in: query
+        name: wall10freeze
+        type: number
+      - in: query
+        name: wall1freeze
+        type: number
+      - in: query
+        name: wall2
+        type: number
+      - in: query
+        name: wall2freeze
+        type: number
+      - in: query
+        name: wall3
+        type: number
+      - in: query
+        name: wall3freeze
+        type: number
+      - in: query
+        name: wall4
+        type: number
+      - in: query
+        name: wall4freeze
+        type: number
+      - in: query
+        name: wall5
+        type: number
+      - in: query
+        name: wall5freeze
+        type: number
+      - in: query
+        name: wall6
+        type: number
+      - in: query
+        name: wall6freeze
+        type: number
+      - in: query
+        name: wall7
+        type: number
+      - in: query
+        name: wall7freeze
+        type: number
+      - in: query
+        name: wall8
+        type: number
+      - in: query
+        name: wall8freeze
+        type: number
+      - in: query
+        name: wall9
+        type: number
+      - in: query
+        name: wall9freeze
+        type: number
+      - in: query
+        name: win
+        type: string
+      - in: query
+        name: ztlevel
+        type: string
+      - in: query
+        name: ztnum
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取FaUser列表
+      tags:
+      - FaUser
+  /faUser/updateFaUser:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新FaUser
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.FaUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新FaUser
+      tags:
+      - FaUser
+  /faUserLevel/createFaUserLevel:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建FaUserLevel
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.FaUserLevel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建FaUserLevel
+      tags:
+      - FaUserLevel
+  /faUserLevel/deleteFaUserLevel:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除FaUserLevel
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.FaUserLevel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除FaUserLevel
+      tags:
+      - FaUserLevel
+  /faUserLevel/deleteFaUserLevelByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除FaUserLevel
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除FaUserLevel
+      tags:
+      - FaUserLevel
+  /faUserLevel/findFaUserLevel:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: n1
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - in: query
+        name: rate
+        type: number
+      - in: query
+        name: tdnum
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: ztnum
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询FaUserLevel
+      tags:
+      - FaUserLevel
+  /faUserLevel/getFaUserLevelList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: n1
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: rate
+        type: number
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: tdnum
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: ztnum
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取FaUserLevel列表
+      tags:
+      - FaUserLevel
+  /faUserLevel/updateFaUserLevel:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新FaUserLevel
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.FaUserLevel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新FaUserLevel
+      tags:
+      - FaUserLevel
   /fileUploadAndDownload/breakpointContinue:
     post:
       consumes:
@@ -3928,7 +5292,7 @@ paths:
       summary: 更新菜单
       tags:
       - Menu
-  /pay/routerName:
+  /pay/ChargeCheck:
     post:
       produces:
       - application/json
@@ -3938,6 +5302,18 @@ paths:
           schema:
             type: string
       summary: 充值订单检查
+      tags:
+      - Pay
+  /pay/routerName:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"发送成功"}'
+          schema:
+            type: string
+      summary: 请手动填写接口功能
       tags:
       - Pay
   /sysDictionary/createSysDictionary:
@@ -4233,7 +5609,7 @@ paths:
       - description: 字典值
         in: query
         name: value
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -4302,7 +5678,7 @@ paths:
       - description: 字典值
         in: query
         name: value
-        type: integer
+        type: string
       produces:
       - application/json
       responses:

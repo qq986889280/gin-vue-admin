@@ -1,7 +1,7 @@
 package service
 
 type ServiceGroup struct {
-	CcService
+	UcenterService
 }
 
 var ServiceGroupApp = new(ServiceGroup)

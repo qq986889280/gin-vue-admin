@@ -2,6 +2,7 @@
 package user
 
 import (
+	"strconv"
 	"time"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
@@ -90,6 +91,16 @@ type FaUser struct {
 	Sw5          int         `json:"sw5" form:"sw5" gorm:"column:sw5;comment:互转;"`
 	Sw6          int         `json:"sw6" form:"sw6" gorm:"column:sw6;comment:奖励;"`
 	FaUserLevel  FaUserLevel `gorm:"foreignKey:Level"`
+	Children     []FaUser    `json:"children" gorm:"-"`
+}
+
+type UserCharge struct {
+	Userid   int     `json:"userid"  `
+	Username string  `json:"username"  `
+	Ptype    string  `json:"ptype" `
+	Typec    string  `json:"typec" `
+	Msg      string  `json:"msg" `
+	Price    float64 `json:"price" `
 }
 
 // TableName FaUser 表名
@@ -101,5 +112,8 @@ func (u *FaUser) BeforeCreate(tx *gorm.DB) (err error) {
 
 	u.Password = utils.BcryptHash(u.Password)
 	u.Password2 = utils.BcryptHash(u.Password2)
+	if *u.Tjid > 0 {
+		u.Tpath = u.Tpath + "," + strconv.Itoa(*u.Tjid)
+	}
 	return
 }

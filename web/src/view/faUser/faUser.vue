@@ -2,10 +2,20 @@
   <div>
     <div class="gva-search-box">
       <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
-        <el-form-item label="创建时间">
+        <!-- <el-form-item label="创建时间">
           <el-date-picker v-model="searchInfo.startCreatedAt" type="datetime" placeholder="开始时间" />
           —
           <el-date-picker v-model="searchInfo.endCreatedAt" type="datetime" placeholder="结束时间" />
+        </el-form-item> -->
+        <el-form-item label="ID">
+
+          <el-input v-model.number="searchInfo.ID" placeholder="搜索条件" />
+
+        </el-form-item>
+        <el-form-item label="用户名">
+
+          <el-input v-model.number="searchInfo.username" placeholder="搜索条件" />
+
         </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -35,11 +45,21 @@
         row-key="ID"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" />
-        <el-table-column align="left" label="按钮组" width="150">
+        <el-table-column align="left" label="按钮组" width="150" fixed="right">
           <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateFaUserFunc(scope.row)">变更</el-button>
             <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
+            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateWallet(scope.row)">账户</el-button>
+            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="opdendrawer(scope.row)">团队</el-button>
+
+          </template>
+        </el-table-column>
+        <el-table-column type="selection" width="55" />
+        <el-table-column align="left" label="用户ID" prop="ID" width="120" />
+        <el-table-column align="left" label="用户名" prop="username" width="120">
+          <template #default="scope">
+            <div :style="[{color: scope.row.status==1?'':'red'}]">
+              {{ scope.row.username }}</div>
           </template>
         </el-table-column>
         <el-table-column align="left" label="状态">
@@ -119,12 +139,12 @@
             />
           </template>
         </el-table-column>
-        <el-table-column align="left" label="日期" width="180">
+        <!-- <el-table-column align="left" label="日期" width="180">
           <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
-        </el-table-column>
+        </el-table-column> -->
 
         <!-- <el-table-column align="left" label="组别ID" prop="groupId" width="120" /> -->
-        <el-table-column align="left" label="用户名" prop="username" width="120" />
+
         <el-table-column align="left" label="昵称" prop="nickname" width="120" />
         <el-table-column align="left" label="头像" min-width="75">
           <template #default="scope">
@@ -244,6 +264,38 @@
         />
       </div>
     </div>
+
+    <el-dialog v-model="dialogFormVisible2" :before-close="closeDialog2" title="充值">
+      <el-form ref="elFormRef" :model="formData2" label-position="right" :rules="rule" label-width="150px">
+        <el-form-item label="用户:" prop="username">
+          <el-input v-model="formData2.username" disabled />
+        </el-form-item>
+        <el-form-item label="钱包类型" prop="ptype">
+          <el-select v-model="formData2.ptype" clearable placeholder="请选择" @clear="()=>{formData2.ptype=undefined}">
+            <el-option v-for="(item,key) in walletOptions" :key="key" :label="item.label" :value="item.value" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="操作金额" prop="price">
+          <el-input-number v-model="formData2.price" placeholder="" />
+        </el-form-item>
+        <el-form-item label="操作说明" prop="msg">
+          <el-input v-model="formData2.msg" placeholder="操作说明" />
+        </el-form-item>
+        <el-form-item label="类型" prop="typec">
+          <el-radio-group v-model="formData2.typec">
+            <el-radio :label="'1'">增加</el-radio>
+            <el-radio :label="'2'">减少</el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button size="small" @click="closeDialog2">取 消</el-button>
+          <el-button size="small" type="primary" @click="enterDialog2">确 定</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form ref="elFormRef" :model="formData" label-position="right" :rules="rule" label-width="150px">
         <!-- <el-form-item label="组别ID:" prop="groupId">
@@ -255,12 +307,12 @@
         <el-form-item label="昵称:" prop="nickname">
           <el-input v-model="formData.nickname" :clearable="true" placeholder="请输入" />
         </el-form-item>
-        <!-- <el-form-item label="密码:" prop="password">
+        <el-form-item label="密码:" prop="password">
           <el-input v-model="formData.password" :clearable="true" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="支付密码:" prop="password2">
           <el-input v-model="formData.password2" :clearable="true" placeholder="请输入" />
-        </el-form-item> -->
+        </el-form-item>
         <!-- <el-form-item label="谷歌秘钥:" prop="password3">
           <el-input v-model="formData.password3" :clearable="true" placeholder="请输入" />
         </el-form-item>
@@ -347,7 +399,7 @@
             :inactive-value="2"
           />
         </el-form-item>
-        <el-form-item label="VIP" prop="disabled">
+        <!-- <el-form-item label="VIP" prop="disabled">
           <el-switch
             v-model="formData.sw1"
             inline-prompt
@@ -394,7 +446,7 @@
             :active-value="1"
             :inactive-value="2"
           />
-        </el-form-item>
+        </el-form-item> -->
 
         <!-- <el-form-item label="wall1:" prop="wall1freeze">
           <el-input-number v-model="formData.wall1freeze" style="width:100%" :precision="2" :clearable="true" />
@@ -435,9 +487,9 @@
         <el-form-item label="推荐路径:" prop="tpath">
           <el-input v-model="formData.tpath" :clearable="true" placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="邀请码:" prop="tgno">
+        <!-- <el-form-item label="邀请码:" prop="tgno">
           <el-input v-model="formData.tgno" :clearable="true" placeholder="请输入" />
-        </el-form-item>
+        </el-form-item> -->
         <!-- <el-form-item label="直推代数:" prop="ztlevel">
           <el-input v-model="formData.ztlevel" :clearable="true" placeholder="请输入" />
         </el-form-item>
@@ -465,7 +517,7 @@
         <el-form-item label="个人业绩:" prop="gryj">
           <el-input v-model.number="formData.gryj" :clearable="true" placeholder="请输入" />
         </el-form-item> -->
-        <el-form-item label="姓名:" prop="realname">
+        <!-- <el-form-item label="姓名:" prop="realname">
           <el-input v-model="formData.realname" :clearable="true" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="身份证号:" prop="idcard">
@@ -482,7 +534,7 @@
         </el-form-item>
         <el-form-item label="实名状态:0=未实名,1=已实名,2=待审核:" prop="isSm">
           <el-input v-model="formData.isSm" :clearable="true" placeholder="请输入" />
-        </el-form-item>
+        </el-form-item> -->
         <!-- <el-form-item label="S1账户:" prop="S1">
           <el-input-number v-model="formData.S1" style="width:100%" :precision="2" :clearable="true" />
         </el-form-item>
@@ -529,6 +581,20 @@
       </template>
     </el-dialog>
     <ChooseImg ref="chooseImg" :target="formData" :target-key="`avatar`" />
+
+    <el-drawer v-if="drawer" v-model="drawer" custom-class="auth-drawer" :with-header="false" size="50%" title="角色配置">
+      <el-tabs type="border-card">
+        <el-tab-pane label="团队">
+          <Menus ref="menus" :row="activeRow" @changeRow="changeRow" />
+        </el-tab-pane>
+        <!-- <el-tab-pane label="角色api">
+          <Apis ref="apis" :row="activeRow" @changeRow="changeRow" />
+        </el-tab-pane>
+        <el-tab-pane label="资源权限">
+          <Datas ref="datas" :authority="tableData" :row="activeRow" @changeRow="changeRow" />
+        </el-tab-pane> -->
+      </el-tabs>
+    </el-drawer>
   </div>
 </template>
 
@@ -539,13 +605,15 @@ export default {
 </script>
 
 <script setup>
+import Menus from '@/view/faUser/components/menus.vue'
 import {
   createFaUser,
   deleteFaUser,
   deleteFaUserByIds,
   updateFaUser,
   findFaUser,
-  getFaUserList
+  getFaUserList,
+  userCharge
 } from '@/api/faUser'
 import CustomPic from '@/components/customPic/index.vue'
 import ChooseImg from '@/components/chooseImg/index.vue'
@@ -554,7 +622,16 @@ import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/form
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { nextTick, ref, reactive } from 'vue'
 const path = ref(import.meta.env.VITE_BASE_API + '/')
+const formData2 = ref({
+  userid: 0,
+  username: '',
+  ptype: 'wall1',
+  typec: '1', // 1 增加 2扣
+  msg: '', // 描述
+  price: 0
+})
 // 自动化生成的字典（可能为空）以及字段
+const walletOptions = ref([])
 const formData = ref({
   groupId: 0,
   username: '',
@@ -720,6 +797,7 @@ getTableData()
 
 // 获取需要的字典 可能为空 按需保留
 const setOptions = async() => {
+  walletOptions.value = await getDictFunc('wallet')
 }
 
 // 获取需要的字典 可能为空 按需保留
@@ -801,10 +879,26 @@ const deleteFaUserFunc = async(row) => {
     getTableData()
   }
 }
-
+// 账户
+const updateWallet = async(row) => {
+  formData2.value.userid = row.ID
+  formData2.value.username = row.username
+  dialogFormVisible2.value = true
+}
+// 关闭弹窗2
+const closeDialog2 = () => {
+  dialogFormVisible2.value = false
+}
+const activeRow = ref({})
+// 团队
+const opdendrawer = (row) => {
+  drawer.value = true
+  activeRow.value = row
+}
 // 弹窗控制标记
 const dialogFormVisible = ref(false)
-
+const dialogFormVisible2 = ref(false)
+const drawer = ref(false)
 // 打开弹窗
 const openDialog = () => {
   type.value = 'create'
@@ -844,7 +938,7 @@ const closeDialog = () => {
     wall8: 0,
     wall9: 0,
     wall10: 0,
-    status: false,
+    status: 1,
     wall1freeze: 0,
     wall2freeze: 0,
     wall3freeze: 0,
@@ -886,12 +980,12 @@ const closeDialog = () => {
     suan2: '',
     isSim: '',
     win: '',
-    sw1: false,
-    sw2: false,
-    sw3: false,
-    sw4: false,
-    sw5: false,
-    sw6: false,
+    sw1: 1,
+    sw2: 1,
+    sw3: 1,
+    sw4: 1,
+    sw5: 1,
+    sw6: 1,
   }
 }
 // 弹窗确定
@@ -920,7 +1014,17 @@ const enterDialog = async() => {
        }
      })
 }
-
+const enterDialog2 = async() => {
+  const res = await userCharge(formData2.value)
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: '操作成功'
+    })
+    closeDialog2()
+    getTableData()
+  }
+}
 const switchEnable = async(row) => {
   formData.value = JSON.parse(JSON.stringify(row))
   await nextTick()

@@ -1,7 +1,7 @@
 package router
 
 type RouterGroup struct {
-	CcRouter
+	UcenterRouter
 }
 
 var RouterGroupApp = new(RouterGroup)

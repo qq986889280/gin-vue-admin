@@ -95,3 +95,27 @@ export const getFaUserList = (params) => {
     params
   })
 }
+
+export const resetPassword = (data) => {
+  return service({
+    url: '/faUser/resetPassword',
+    method: 'post',
+    data: data
+  })
+}
+
+export const userCharge = (data) => {
+  return service({
+    url: '/faUser/userCharge',
+    method: 'post',
+    data: data
+  })
+}
+
+export const userTeam = (params) => {
+  return service({
+    url: '/faUser/userTeam',
+    method: 'get',
+    params
+  })
+}

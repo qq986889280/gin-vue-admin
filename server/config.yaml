@@ -38,6 +38,8 @@ captcha:
   key-long: 4
   img-width: 240
   img-height: 80
+cc:
+  curl: https://api.tiankongapi.com/api.php/provide/vod/?ac=detail
 cors:
   mode: whitelist
   whitelist:
@@ -73,10 +75,10 @@ db-list:
 email:
   to: 986889280@qq.com
   port: 465
-  from: trz7687@163.com
+  from: A17167729567@163.com
   host: smtp.163.com
   is-ssl: true
-  secret: ZVHYZFSKPFSJUOFB
+  secret: DEQWGBOVSDARZAZZ
   nickname: test
 excel:
   dir: ./resource/excel/
@@ -185,5 +187,3 @@ zap:
   max-age: 0
   show-line: true
   log-in-console: true
-cc:
-  curl: https://api.tiankongapi.com/api.php/provide/vod/?ac=detail

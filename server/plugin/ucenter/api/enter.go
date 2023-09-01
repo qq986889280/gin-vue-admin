@@ -1,7 +1,7 @@
 package api
 
 type ApiGroup struct {
-	CcApi
+	UcenterApi
 }
 
 var ApiGroupApp = new(ApiGroup)

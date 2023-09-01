@@ -105,13 +105,13 @@
           <el-input v-model="formData.account" :clearable="true" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="原金额:" prop="yprice">
-          <el-input-number v-model="formData.yprice" style="width:100%" :precision="2" :clearable="true" />
+          <el-input-number v-model="formData.yprice" style="width:100%" :precision="4" :clearable="true" />
         </el-form-item>
         <el-form-item label="操作金额:" prop="price">
-          <el-input-number v-model="formData.price" style="width:100%" :precision="2" :clearable="true" />
+          <el-input-number v-model="formData.price" style="width:100%" :precision="4" :clearable="true" />
         </el-form-item>
         <el-form-item label="当前金额:" prop="nprice">
-          <el-input-number v-model="formData.nprice" style="width:100%" :precision="2" :clearable="true" />
+          <el-input-number v-model="formData.nprice" style="width:100%" :precision="4" :clearable="true" />
         </el-form-item>
         <el-form-item label="操作说明:" prop="memo">
           <el-input v-model="formData.memo" :clearable="true" placeholder="请输入" />

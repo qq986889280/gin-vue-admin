@@ -54,6 +54,12 @@ func (faUserService *FaUserService) GetFaUserInfoList(info userReq.FaUserSearch)
 	db := global.GVA_DB.Model(&user.FaUser{}).Preload("FaUserLevel")
 	var faUsers []user.FaUser
 	// 如果有条件搜索 下方会自动创建搜索语句
+	if info.ID > 0 {
+		db = db.Where("id = ?", info.ID)
+	}
+	if info.Username != "" {
+		db = db.Where("username = ?", info.Username)
+	}
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
@@ -64,4 +70,62 @@ func (faUserService *FaUserService) GetFaUserInfoList(info userReq.FaUserSearch)
 
 	err = db.Limit(limit).Offset(offset).Find(&faUsers).Error
 	return faUsers, total, err
+}
+
+// Charge 后台用户充值
+// Author [piexlmax](https://github.com/piexlmax)
+func (faUserService *FaUserService) Charge(info user.UserCharge) (err error) {
+	var FaCaiwuService FaCaiwuService
+	if info.Typec == "1" {
+		// 充值
+		if err = FaCaiwuService.Caiwu(info.Userid, info.Price, info.Ptype, info.Typec, info.Msg); err != nil {
+			return
+		}
+	} else {
+		// 扣款
+		if err = FaCaiwuService.Caiwu(info.Userid, -info.Price, info.Ptype, info.Typec, info.Msg); err != nil {
+			return
+		}
+	}
+	return
+}
+
+type Memmbers []user.FaUser
+
+func (faUserService *FaUserService) getTeamTreeMap(ID int) (treeMap map[int][]user.FaUser, err error) {
+	var gg []user.FaUser
+	treeMap = make(map[int][]user.FaUser)
+	err = global.GVA_DB.Model(user.FaUser{}).Where("find_in_set(?,tpath)", ID).Or("id=?", ID).Find(&gg).Error
+	for _, v := range gg {
+		treeMap[*v.Tjid] = append(treeMap[*v.Tjid], v)
+	}
+	return treeMap, err
+}
+func (faUserService *FaUserService) getBaseChildrenList(team *user.FaUser, treeMap map[int][]user.FaUser) (err error) {
+	team.Children = treeMap[int(team.ID)]
+	for i := 0; i < len(team.Children); i++ {
+		err = faUserService.getBaseChildrenList(&team.Children[i], treeMap)
+	}
+	return err
+}
+
+// Team 后台用户团队
+// Author [piexlmax](https://github.com/piexlmax)
+func (faUserService *FaUserService) Team(ID int) (teams []user.FaUser, err error) {
+
+	treeMap, err := faUserService.getTeamTreeMap(ID)
+	teams = treeMap[ID]
+	for i := 0; i < len(teams); i++ {
+		err = faUserService.getBaseChildrenList(&teams[i], treeMap)
+	}
+	return teams, err
+
+	// var gg Memmbers
+	// err = global.GVA_DB.Model(user.FaUser{}).Where("find_in_set(?,tpath)", ID).Or("id=?", ID).Find(&gg).Error
+
+	// // 生成完全树
+	// resp = Tree.GenerateTree(gg.ConvertToINodeArray(), nil)
+	// bytes, _ := json.MarshalIndent(gg, "", "\t")
+	// fmt.Println(string(bytes))
+	// return resp, err
 }
