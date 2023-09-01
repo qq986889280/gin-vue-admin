@@ -41,6 +41,14 @@
           <el-form-item label="限流时间">
             <el-input-number v-model.number="config.system['iplimit-time']" />
           </el-form-item>
+          <el-tooltip
+            content="请修改完成后，注意一并修改前端env环境下的VITE_BASE_PATH"
+            placement="top-start"
+          >
+            <el-form-item label="全局路由前缀">
+              <el-input v-model="config.system['router-prefix']" />
+            </el-form-item>
+          </el-tooltip>
         </el-collapse-item>
         <el-collapse-item title="jwt签名" name="2">
           <el-form-item label="jwt签名">
@@ -178,7 +186,7 @@
               <el-input v-model="config.mysql['log-mode']" />
             </el-form-item>
           </template>
-          <template v-if="config.system.dbType === 'pgsql'">
+          <template v-if="config.system['db-type'] === 'pgsql'">
             <el-form-item label="用户名">
               <el-input v-model="config.pgsql.username" />
             </el-form-item>
@@ -365,7 +373,7 @@
             <el-input v-model="config.timer.spec" />
           </el-form-item>
           <template v-for="(item,k) in config.timer.detail">
-            <div v-for="(key,k2) in item" :key="k2">
+            <div v-for="(_,k2) in item" :key="k2">
               <el-form-item :key="k+k2" :label="k2">
                 <el-input v-model="item[k2]" />
               </el-form-item>
@@ -374,9 +382,9 @@
         </el-collapse-item>
       </el-collapse>
     </el-form>
-    <div class="gva-btn-list">
-      <el-button type="primary" size="small" @click="update">立即更新</el-button>
-      <el-button type="primary" size="small" @click="reload">重启服务（开发中）</el-button>
+    <div class="mt-4">
+      <el-button type="primary" @click="update">立即更新</el-button>
+      <el-button type="primary" @click="reload">重启服务（开发中）</el-button>
     </div>
   </div>
 </template>
@@ -456,20 +464,9 @@ const email = async() => {
 
 <style lang="scss">
 .system {
-  background: #fff;
-  padding:36px;
-  border-radius: 2px;
+  @apply bg-white p-9 rounded;
   h2 {
-    padding: 10px;
-    margin: 10px 0;
-    font-size: 16px;
-    box-shadow: -4px 0px 0px 0px #e7e8e8;
-  }
-  ::v-deep(.el-input-number__increase){
-    top:5px !important;
-  }
-  .gva-btn-list{
-    margin-top:16px;
+    @apply p-2.5 my-2.5 text-lg shadow;
   }
 }
 </style>

@@ -10,6 +10,9 @@
       {{- if eq .FieldType "string" }}
           <el-input v-model="formData.{{.FieldJson}}" :clearable="{{.Clearable}}" placeholder="请输入" />
       {{- end }}
+      {{- if eq .FieldType "richtext" }}
+          <RichEdit v-model="formData.{{.FieldJson}}"/>
+      {{- end }}
       {{- if eq .FieldType "int" }}
       {{- if .DictType }}
           <el-select v-model="formData.{{ .FieldJson }}" placeholder="请选择" :clearable="{{.Clearable}}">
@@ -30,11 +33,17 @@
           <el-option v-for="item in [{{ .DataTypeLong }}]" :key="item" :label="item" :value="item" />
         </el-select>
       {{- end }}
-        </el-form-item>
+       {{- if eq .FieldType "picture" }}
+          <SelectImage v-model="formData.{{ .FieldJson }}" />
+       {{- end }}
+       {{- if eq .FieldType "pictures" }}
+           <SelectImage v-model="formData.{{ .FieldJson }}" multiple />
+       {{- end }}
+       </el-form-item>
       {{- end }}
         <el-form-item>
-          <el-button size="small" type="primary" @click="save">保存</el-button>
-          <el-button size="small" type="primary" @click="back">返回</el-button>
+          <el-button type="primary" @click="save">保存</el-button>
+          <el-button type="primary" @click="back">返回</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -59,6 +68,18 @@ import { getDictFunc } from '@/utils/format'
 import { useRoute, useRouter } from "vue-router"
 import { ElMessage } from 'element-plus'
 import { ref, reactive } from 'vue'
+{{- if .HasPic }}
+import SelectImage from '@/components/selectImage/selectImage.vue'
+{{- end }}
+{{- if .HasFile }}
+import SelectFile from '@/components/selectFile/selectFile.vue'
+{{- end }}
+
+{{- if .HasRichText }}
+// 富文本组件
+import RichEdit from '@/components/richtext/rich-edit.vue'
+{{- end }}
+
 const route = useRoute()
 const router = useRouter()
 
@@ -82,6 +103,15 @@ const formData = ref({
             {{- end }}
             {{- if eq .FieldType "float64" }}
             {{.FieldJson}}: 0,
+            {{- end }}
+            {{- if eq .FieldType "picture" }}
+            {{.FieldJson}}: "",
+            {{- end }}
+            {{- if eq .FieldType "pictures" }}
+            {{.FieldJson}}: [],
+            {{- end }}
+            {{- if eq .FieldType "file" }}
+            {{.FieldJson}}: [],
             {{- end }}
         {{- end }}
         })

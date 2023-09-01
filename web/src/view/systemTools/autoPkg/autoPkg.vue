@@ -2,8 +2,9 @@
   <div>
     <warning-bar href="https://www.bilibili.com/video/BV1kv4y1g7nT?p=3" title="此功能为开发环境使用，不建议发布到生产，具体使用效果请看视频https://www.bilibili.com/video/BV1kv4y1g7nT?p=3" />
     <div class="gva-table-box">
-      <div class="gva-btn-list">
-        <el-button size="small" type="primary" icon="plus" @click="openDialog('addApi')">新增</el-button>
+      <div class="gva-btn-list gap-3 flex items-center">
+        <el-button type="primary" icon="plus" @click="openDialog('addApi')">新增</el-button>
+        <el-icon class="cursor-pointer" @click="toDoc('https://www.bilibili.com/video/BV1kv4y1g7nT?p=3&vd_source=f2640257c21e3b547a790461ed94875e')"><VideoCameraFilled /></el-icon>
       </div>
       <el-table :data="tableData">
         <el-table-column align="left" label="id" width="60" prop="ID" />
@@ -15,7 +16,7 @@
           <template #default="scope">
             <el-button
               icon="delete"
-              size="small"
+
               type="primary"
               link
               @click="deleteApiFunc(scope.row)"
@@ -41,8 +42,8 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button size="small" @click="closeDialog">取 消</el-button>
-          <el-button size="small" type="primary" @click="enterDialog">确 定</el-button>
+          <el-button @click="closeDialog">取 消</el-button>
+          <el-button type="primary" @click="enterDialog">确 定</el-button>
         </div>
       </template>
     </el-dialog>
@@ -64,6 +65,8 @@ import {
 import { ref } from 'vue'
 import WarningBar from '@/components/warningBar/warningBar.vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import {toDoc} from "@/utils/doc";
+import {VideoCameraFilled} from "@element-plus/icons-vue";
 
 const form = ref({
   packageName: '',
@@ -146,15 +149,3 @@ const deleteApiFunc = async(row) => {
 
 getTableData()
 </script>
-
-<style scoped lang="scss">
-.button-box {
-  padding: 10px 20px;
-  .el-button {
-    float: right;
-  }
-}
-.warning {
-  color: #dc143c;
-}
-</style>

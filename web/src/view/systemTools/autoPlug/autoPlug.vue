@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="gva-table-box">
-      <el-form label-width="140px" class="plug-form">
+      <el-form label-width="140px" class="w-[680px]">
         <el-form-item label="插件名">
           <el-input v-model="form.plugName" placeholder="必填（英文大写字母开头）" @blur="titleCase" />
         </el-form-item>
@@ -94,6 +94,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="createPlug">创建</el-button>
+          <el-icon class="cursor-pointer ml-3" @click="toDoc('https://www.bilibili.com/video/BV1kv4y1g7nT?p=13&vd_source=f2640257c21e3b547a790461ed94875e')"><VideoCameraFilled /></el-icon>
         </el-form-item>
       </el-form>
 
@@ -106,13 +107,14 @@ import { toUpperCase } from '@/utils/stringFun'
 
 import {
   Plus,
-  Minus
+  Minus, VideoCameraFilled
 } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 import { createPlugApi } from '@/api/autoCode.js'
 
 import { reactive } from 'vue'
+import {toDoc} from "@/utils/doc";
 
 const form = reactive({
   plugName: '',
@@ -203,18 +205,13 @@ const minkv = (arr, key) => {
 </script>
 
 <style lang="scss" scoped>
-        .plug-form{
-            width: 680px;
-        }
     .plug-row{
-        display: flex;
-        align-items: center;
-        width: 100%;
+      @apply flex items-center w-full;
         &+&{
-            margin-top: 12px;
+          @apply mt-3;
         }
         &>span{
-            margin-left: 8px;
+          @apply ml-2;
         }
     }
 </style>

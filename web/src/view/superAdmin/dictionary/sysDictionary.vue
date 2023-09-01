@@ -22,13 +22,13 @@
         </el-form-item>
         <el-form-item>
           <el-button
-            size="small"
+
             type="primary"
             icon="search"
             @click="onSubmit"
           >查询</el-button>
           <el-button
-            size="small"
+
             icon="refresh"
             @click="onReset"
           >重置</el-button>
@@ -38,11 +38,12 @@
     <div class="gva-table-box">
       <div class="gva-btn-list">
         <el-button
-          size="small"
+
           type="primary"
           icon="plus"
           @click="openDialog"
         >新增</el-button>
+        <el-icon  class="cursor-pointer" @click="toDoc('https://www.bilibili.com/video/BV1kv4y1g7nT?p=12&vd_source=f2640257c21e3b547a790461ed94875e')"><VideoCameraFilled /></el-icon>
       </div>
       <el-table
         ref="multipleTable"
@@ -80,17 +81,17 @@
 
         <el-table-column align="left" label="描述" prop="desc" width="280" />
 
-        <el-table-column align="left" label="按钮组">
+        <el-table-column align="left" label="操作">
           <template #default="scope">
             <el-button
-              size="small"
+
               icon="document"
               type="primary"
               link
               @click="toDetail(scope.row)"
             >详情</el-button>
             <el-button
-              size="small"
+
               icon="edit"
               type="primary"
               link
@@ -104,14 +105,14 @@
               <p>确定要删除吗？</p>
               <div style="text-align: right; margin-top: 8px">
                 <el-button
-                  size="small"
+
                   type="primary"
                   link
                   @click="scope.row.visible = false"
                 >取消</el-button>
                 <el-button
                   type="primary"
-                  size="small"
+
                   @click="deleteSysDictionaryFunc(scope.row)"
                 >确定</el-button>
               </div>
@@ -120,7 +121,7 @@
                   type="primary"
                   link
                   icon="delete"
-                  size="small"
+
                   style="margin-left: 10px"
                   @click="scope.row.visible = true"
                 >删除</el-button>
@@ -145,13 +146,12 @@
     <el-dialog
       v-model="dialogFormVisible"
       :before-close="closeDialog"
-      title="弹窗操作"
+      :title="type==='create'?'添加字典':'修改字典'"
     >
       <el-form
         ref="dialogForm"
         :model="formData"
         :rules="rules"
-        size="medium"
         label-width="110px"
       >
         <el-form-item label="字典名（中）" prop="name">
@@ -188,9 +188,9 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button size="small" @click="closeDialog">取 消</el-button>
+          <el-button @click="closeDialog">取 消</el-button>
           <el-button
-            size="small"
+
             type="primary"
             @click="enterDialog"
           >确 定</el-button>
@@ -219,6 +219,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { formatBoolean, formatDate } from '@/utils/format'
+import {toDoc} from "@/utils/doc";
+import {VideoCameraFilled} from "@element-plus/icons-vue";
 
 const router = useRouter()
 

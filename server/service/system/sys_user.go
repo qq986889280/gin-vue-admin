@@ -3,11 +3,13 @@ package system
 import (
 	"errors"
 	"fmt"
+	"time"
+
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
-	uuid "github.com/satori/go.uuid"
+	"github.com/gofrs/uuid/v5"
 	"gorm.io/gorm"
 )
 
@@ -26,7 +28,7 @@ func (userService *UserService) Register(u system.SysUser) (userInter system.Sys
 	}
 	// 否则 附加uuid 密码hash加密 注册
 	u.Password = utils.BcryptHash(u.Password)
-	u.UUID = uuid.NewV4()
+	u.UUID = uuid.Must(uuid.NewV4())
 	err = global.GVA_DB.Create(&u).Error
 	return u, err
 }
@@ -162,7 +164,30 @@ func (userService *UserService) DeleteUser(id int) (err error) {
 //@return: err error, user model.SysUser
 
 func (userService *UserService) SetUserInfo(req system.SysUser) error {
-	return global.GVA_DB.Updates(&req).Error
+	return global.GVA_DB.Model(&system.SysUser{}).
+		Select("updated_at", "nick_name", "header_img", "phone", "email", "sideMode", "enable").
+		Where("id=?", req.ID).
+		Updates(map[string]interface{}{
+			"updated_at": time.Now(),
+			"nick_name":  req.NickName,
+			"header_img": req.HeaderImg,
+			"phone":      req.Phone,
+			"email":      req.Email,
+			"side_mode":  req.SideMode,
+			"enable":     req.Enable,
+		}).Error
+}
+
+//@author: [piexlmax](https://github.com/piexlmax)
+//@function: SetUserInfo
+//@description: 设置用户信息
+//@param: reqUser model.SysUser
+//@return: err error, user model.SysUser
+
+func (userService *UserService) SetSelfInfo(req system.SysUser) error {
+	return global.GVA_DB.Model(&system.SysUser{}).
+		Where("id=?", req.ID).
+		Updates(req).Error
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)

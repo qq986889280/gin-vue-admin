@@ -1,48 +1,8 @@
 <template>
   <div class="search-component">
-    <transition name="el-fade-in-linear">
-      <div v-show="show" class="transition-box" style="display: inline-block;">
-        <el-select
-          ref="searchInput"
-          v-model="value"
-          filterable
-          placeholder="请选择"
-          @blur="hiddenSearch"
-          @change="changeRouter"
-        >
-          <el-option
-            v-for="item in routerStore.routerList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </div>
-    </transition>
-    <div
-      v-if="btnShow"
-      class="user-box"
-    >
       <div class="gvaIcon gvaIcon-refresh" :class="[reload ? 'reloading' : '']" @click="handleReload" />
-    </div>
-    <div
-      v-if="btnShow"
-      class="user-box"
-    >
-      <div class="gvaIcon gvaIcon-search" @click="showSearch" />
-    </div>
-    <div
-      v-if="btnShow"
-      class="user-box"
-    >
-      <Screenfull class="search-icon" :style="{cursor:'pointer'}" />
-    </div>
-    <div
-      v-if="btnShow"
-      class="user-box"
-    >
-      <div class="service gvaIcon-customer-service" @click="toService" />
-    </div>
+      <Screenfull class="search-icon" />
+      <div class="gvaIcon gvaIcon-customer-service" @click="toService" />
   </div>
 </template>
 
@@ -55,37 +15,7 @@ export default {
 <script setup>
 import Screenfull from '@/view/layout/screenfull/index.vue'
 import { emitter } from '@/utils/bus.js'
-import { ref, nextTick } from 'vue'
-import { useRouter } from 'vue-router'
-import { useRouterStore } from '@/pinia/modules/router'
-
-const router = useRouter()
-
-const routerStore = useRouterStore()
-
-const value = ref('')
-const changeRouter = () => {
-  router.push({ name: value.value })
-  value.value = ''
-}
-
-const show = ref(false)
-const btnShow = ref(true)
-const hiddenSearch = () => {
-  show.value = false
-  setTimeout(() => {
-    btnShow.value = true
-  }, 500)
-}
-
-const searchInput = ref(null)
-const showSearch = async() => {
-  btnShow.value = false
-  show.value = true
-  await nextTick()
-  searchInput.value.focus()
-}
-
+import { ref } from 'vue'
 const reload = ref(false)
 const handleReload = () => {
   reload.value = true
@@ -100,34 +30,49 @@ const toService = () => {
 
 </script>
 <style scoped lang="scss">
-.reload{
+
+.search-component {
+  @apply inline-flex overflow-hidden text-center gap-5 mr-5;
+  div{
+    @apply cursor-pointer;
+  }
+  .el-input__inner {
+    @apply border-b border-solid border-gray-300;
+  }
+  .el-dropdown-link {
+    @apply cursor-pointer;
+  }
+}
+
+.reload {
   font-size: 18px;
 }
+
 
 .reloading{
   animation:turn 0.5s linear infinite;
 }
+
 @keyframes turn {
-  0%{-webkit-transform:rotate(0deg);}
-  25%{-webkit-transform:rotate(90deg);}
-  50%{-webkit-transform:rotate(180deg);}
-  75%{-webkit-transform:rotate(270deg);}
-  100%{-webkit-transform:rotate(360deg);}
-}
-
-
-.service {
-  font-family: "gvaIcon" !important;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 800;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  0% {
+    transform: rotate(0deg);
   }
-//小屏幕不显示
-@media (max-width: 750px) {
-  .service {
-    display: none;
+
+  25% {
+    transform: rotate(90deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  75% {
+    transform: rotate(270deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
+
 </style>

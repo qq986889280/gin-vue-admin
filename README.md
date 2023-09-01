@@ -3,11 +3,11 @@
 <img src="http://qmplusimg.henrongyi.top/gvalogo.jpg" width=300" height="300" />
 </div>
 <div align=center>
-<img src="https://img.shields.io/badge/golang-1.16-blue"/>
-<img src="https://img.shields.io/badge/gin-1.7.0-lightBlue"/>
-<img src="https://img.shields.io/badge/vue-3.2.25-brightgreen"/>
-<img src="https://img.shields.io/badge/element--plus-2.0.1-green"/>
-<img src="https://img.shields.io/badge/gorm-1.22.5-red"/>
+<img src="https://img.shields.io/badge/golang-1.18-blue"/>
+<img src="https://img.shields.io/badge/gin-1.9.1-lightBlue"/>
+<img src="https://img.shields.io/badge/vue-3.3.4-brightgreen"/>
+<img src="https://img.shields.io/badge/element--plus-2.3.8-green"/>
+<img src="https://img.shields.io/badge/gorm-1.25.2-red"/>
 </div>
 
 [English](./README-en.md) | 简体中文
@@ -66,8 +66,8 @@ Gin-vue-admin 是一套为快速研发准备的一整套前后端分离架构式
 Gin-vue-admin 的成长离不开大家的支持，如果你愿意为 gin-vue-admin 贡献代码或提供建议，请阅读以下内容。
 
 #### 1.2.1 Issue 规范
-- issue 仅用于提交 Bug 或 Feature 以及设计相关的内容，其它内容可能会被直接关闭。如果你在使用时产生了疑问，请到 Slack 或 [Gitter](https://gitter.im/ElemeFE/element) 里咨询。
-
+- issue 仅用于提交 Bug 或 Feature 以及设计相关的内容，其它内容可能会被直接关闭。
+									      
 - 在提交 issue 之前，请搜索相关内容是否已被提出。
 
 #### 1.2.2 Pull Request 规范
@@ -314,8 +314,8 @@ swag init
 	- 前端文件参考: [web/src/view/superAdmin/api/api.vue](https://github.com/flipped-aurora/gin-vue-admin/blob/master/web/src/view/superAdmin/api/api.vue)
     - 后台文件参考: [server/router/sys_api.go](https://github.com/flipped-aurora/gin-vue-admin/blob/master/server/router/sys_api.go)
 - 多点登录限制：需要在`config.yaml`中把`system`中的`use-multipoint`修改为true(需要自行配置Redis和Config中的Redis参数，测试阶段，有bug请及时反馈)。
-- 分片长传：提供文件分片上传和大文件分片上传功能示例。
-- 表单生成器：表单生成器借助 [@form-generator](https://github.com/JakHuang/form-generator) 。
+- 分片上传：提供文件分片上传和大文件分片上传功能示例。
+- 表单生成器：表单生成器借助 [@Variant Form](https://github.com/vform666/variant-form) 。
 - 代码生成器：后台基础逻辑以及简单curd的代码生成器。
 
 ## 6. 知识库 

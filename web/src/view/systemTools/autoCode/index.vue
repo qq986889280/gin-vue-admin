@@ -61,7 +61,7 @@
               </el-select>
             </el-form-item>
             <el-form-item>
-              <el-button size="small" type="primary" @click="getColumnFunc">使用此表创建</el-button>
+              <el-button type="primary" @click="getColumnFunc">使用此表创建</el-button>
             </el-form-item>
           </el-form>
         </el-collapse-item>
@@ -89,8 +89,8 @@
           <el-select v-model="form.package" style="width:194px">
             <el-option v-for="item in pkgs" :key="item.ID" :value="item.packageName" :label="item.packageName" />
           </el-select>
-          <el-icon class="auto-icon" @click="getPkgs"><refresh /></el-icon>
-          <el-icon class="auto-icon" @click="goPkgs"><document-add /></el-icon>
+          <el-icon class="cursor-pointer ml-2 text-gray-600" @click="getPkgs"><refresh /></el-icon>
+          <el-icon class="cursor-pointer ml-2 text-gray-600" @click="goPkgs"><document-add /></el-icon>
         </el-form-item>
         <el-form-item label="业务库" prop="businessDB">
           <template #label>
@@ -146,43 +146,103 @@
     <!-- 组件列表 -->
     <div class="gva-table-box">
       <div class="gva-btn-list">
-        <el-button size="small" type="primary" @click="editAndAddField()">新增Field</el-button>
+        <el-button type="primary" @click="editAndAddField()">新增字段</el-button>
       </div>
       <el-table :data="form.fields">
         <el-table-column align="left" type="index" label="序列" width="60" />
-        <el-table-column align="left" prop="fieldName" label="Field名" />
-        <el-table-column align="left" prop="fieldDesc" label="中文名" />
-        <el-table-column align="left" prop="require" label="是否必填">
-          <template #default="{row}">{{ row.require?"是":"否" }}</template>
+        <el-table-column align="left" prop="fieldName" label="字段名称" width="160">
+          <template #default="{row}">
+            <el-input v-model="row.fieldName" />
+          </template>
         </el-table-column>
-        <el-table-column align="left" prop="sort" label="是否排序">
-          <template #default="{row}">{{ row.sort?"是":"否" }}</template>
+        <el-table-column align="left" prop="fieldDesc" label="中文名" width="160">
+          <template #default="{row}">
+            <el-input v-model="row.fieldDesc" />
+          </template>
         </el-table-column>
-        <el-table-column align="left" prop="fieldJson" min-width="120px" label="FieldJson" />
-        <el-table-column align="left" prop="fieldType" label="Field数据类型" width="130" />
-        <el-table-column align="left" prop="dataTypeLong" label="数据库字段长度" width="130" />
-        <el-table-column align="left" prop="columnName" label="数据库字段" width="130" />
-        <el-table-column align="left" prop="comment" label="数据库字段描述" width="130" />
-        <el-table-column align="left" prop="fieldSearchType" label="搜索条件" width="130" />
-        <el-table-column align="left" prop="dictType" label="字典" width="130" />
+        <el-table-column align="left" prop="require" label="必填">
+          <template #default="{row}"> <el-checkbox v-model="row.require" /></template>
+        </el-table-column>
+        <el-table-column align="left" prop="sort" label="排序">
+          <template #default="{row}"> <el-checkbox v-model="row.sort" /> </template>
+        </el-table-column>
+        <el-table-column align="left" prop="fieldJson" width="160px" label="字段Json">
+          <template #default="{row}">
+            <el-input v-model="row.fieldJson" />
+          </template>
+        </el-table-column>
+        <el-table-column align="left" prop="fieldType" label="字段类型" width="160">
+          <template #default="{row}">
+            <el-select
+              v-model="row.fieldType"
+              style="width:100%"
+              placeholder="请选择字段类型"
+              clearable
+            >
+              <el-option
+                v-for="item in typeOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </template>
+        </el-table-column>
+        <el-table-column align="left" prop="dataTypeLong" label="数据库字段长度" width="160">
+          <template #default="{row}">
+            <el-input v-model="row.dataTypeLong" />
+          </template>
+        </el-table-column>
+        <el-table-column align="left" prop="columnName" label="数据库字段" width="160">
+          <template #default="{row}">
+            <el-input v-model="row.columnName" />
+          </template>
+        </el-table-column>
+        <el-table-column align="left" prop="comment" label="数据库字段描述" width="160">
+          <template #default="{row}">
+            <el-input v-model="row.columnName" />
+          </template>
+        </el-table-column>
+        <el-table-column align="left" prop="fieldSearchType" label="搜索条件" width="130">
+          <template #default="{row}">
+            <el-select
+              v-model="row.fieldSearchType"
+              style="width:100%"
+              placeholder="请选择字段查询条件"
+              clearable
+            >
+              <el-option
+                v-for="item in typeSearchOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                :disabled="
+                  (row.fieldType!=='string'&&item.value==='LIKE')||
+                    ((row.fieldType!=='int'&&row.fieldType!=='time.Time'&&row.fieldType!=='float64')&&(item.value==='BETWEEN' || item.value==='NOT BETWEEN'))
+                "
+              />
+            </el-select>
+          </template>
+
+        </el-table-column>
         <el-table-column align="left" label="操作" width="300" fixed="right">
           <template #default="scope">
             <el-button
-              size="small"
+
               type="primary"
               link
               icon="edit"
               @click="editAndAddField(scope.row)"
-            >编辑</el-button>
+            >高级编辑</el-button>
             <el-button
-              size="small"
+
               type="primary"
               link
               :disabled="scope.$index === 0"
               @click="moveUpField(scope.$index)"
             >上移</el-button>
             <el-button
-              size="small"
+
               type="primary"
               link
               :disabled="(scope.$index + 1) === form.fields.length"
@@ -191,45 +251,45 @@
             <el-popover v-model="scope.row.visible" placement="top">
               <p>确定删除吗？</p>
               <div style="text-align: right; margin-top: 8px;">
-                <el-button size="small" type="primary" link @click="scope.row.visible = false">取消</el-button>
-                <el-button type="primary" size="small" @click="deleteField(scope.$index)">确定</el-button>
+                <el-button type="primary" link @click="scope.row.visible = false">取消</el-button>
+                <el-button type="primary" @click="deleteField(scope.$index)">确定</el-button>
               </div>
               <template #reference>
-                <el-button size="small" type="primary" link icon="delete" @click="scope.row.visible = true">删除</el-button>
+                <el-button type="primary" link icon="delete" @click="scope.row.visible = true">删除</el-button>
               </template>
             </el-popover>
           </template>
         </el-table-column>
       </el-table>
       <!-- 组件列表 -->
-      <div class="gva-btn-list justify-content-flex-end auto-btn-list">
-        <el-button size="small" type="primary" @click="enterForm(true)">预览代码</el-button>
-        <el-button size="small" type="primary" @click="enterForm(false)">生成代码</el-button>
+      <div class="gva-btn-list justify-end mt-4">
+        <el-button type="primary" @click="enterForm(true)">预览代码</el-button>
+        <el-button type="primary" @click="enterForm(false)">生成代码</el-button>
       </div>
     </div>
     <!-- 组件弹窗 -->
     <el-dialog v-model="dialogFlag" width="70%" title="组件内容">
-      <FieldDialog v-if="dialogFlag" ref="fieldDialogNode" :dialog-middle="dialogMiddle" />
+      <FieldDialog v-if="dialogFlag" ref="fieldDialogNode" :dialog-middle="dialogMiddle" :typeOptions="typeOptions" :typeSearchOptions="typeSearchOptions" />
       <template #footer>
         <div class="dialog-footer">
-          <el-button size="small" @click="closeDialog">取 消</el-button>
-          <el-button size="small" type="primary" @click="enterDialog">确 定</el-button>
+          <el-button @click="closeDialog">取 消</el-button>
+          <el-button type="primary" @click="enterDialog">确 定</el-button>
         </div>
       </template>
     </el-dialog>
 
     <el-dialog v-model="previewFlag">
       <template #header>
-        <div class="previewCodeTool">
+        <div class="flex items-center py-1.5">
           <p>操作栏：</p>
-          <el-button size="small" type="primary" @click="selectText">全选</el-button>
-          <el-button size="small" type="primary" @click="copy">复制</el-button>
+          <el-button type="primary" @click="selectText">全选</el-button>
+          <el-button type="primary" @click="copy">复制</el-button>
         </div>
       </template>
       <PreviewCodeDialog v-if="previewFlag" ref="previewNode" :preview-code="preViewCode" />
       <template #footer>
         <div class="dialog-footer" style="padding-top:14px;padding-right:14px">
-          <el-button size="small" type="primary" @click="previewFlag = false">确 定</el-button>
+          <el-button type="primary" @click="previewFlag = false">确 定</el-button>
         </div>
       </template>
     </el-dialog>
@@ -247,6 +307,80 @@ import { ref, getCurrentInstance, reactive, watch, toRaw } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import WarningBar from '@/components/warningBar/warningBar.vue'
+
+const typeOptions = ref([
+  {
+    label: '字符串',
+    value: 'string'
+  },
+  {
+    label: '富文本',
+    value: 'richtext'
+  },
+  {
+    label: '整型',
+    value: 'int'
+  },
+  {
+    label: '布尔值',
+    value: 'bool'
+  },
+  {
+    label: '浮点型',
+    value: 'float64'
+  },
+  {
+    label: '时间',
+    value: 'time.Time'
+  },
+  {
+    label: '枚举',
+    value: 'enum'
+  },
+  {
+    label: '单图片（字符串）',
+    value: 'picture',
+  },
+  {
+    label: '多图片（json字符串）',
+    value: 'pictures',
+  },
+  {
+    label: '文件（json字符串）',
+    value: 'file',
+  }
+])
+
+const typeSearchOptions = ref([
+  {
+    label: '=',
+    value: '='
+  },
+  {
+    label: '<>',
+    value: '<>'
+  },
+  {
+    label: '>',
+    value: '>'
+  },
+  {
+    label: '<',
+    value: '<'
+  },
+  {
+    label: 'LIKE',
+    value: 'LIKE'
+  },
+  {
+    label: 'BETWEEN',
+    value: 'BETWEEN'
+  },
+  {
+    label: 'NOT BETWEEN',
+    value: 'NOT BETWEEN'
+  }
+])
 
 const fieldTemplate = {
   fieldName: '',
@@ -397,6 +531,15 @@ const enterForm = async(isPreview) => {
     })
     return false
   }
+
+  if (form.value.package === form.value.abbreviation) {
+    ElMessage({
+      type: 'error',
+      message: 'package和结构体简称不可同名'
+    })
+    return false
+  }
+
   autoCodeForm.value.validate(async valid => {
     if (valid) {
       for (const key in form.value) {
@@ -489,9 +632,7 @@ const getColumnFunc = async() => {
     let dbtype = ''
     if (dbform.value.businessDB !== '') {
       const dbtmp = dbList.value.find(item => item.aliasName === dbform.value.businessDB)
-      console.log(dbtmp)
       const dbraw = toRaw(dbtmp)
-      console.log(dbraw)
       dbtype = dbraw.dbtype
     }
     const tbHump = toHump(dbform.value.tableName)
@@ -514,7 +655,7 @@ const getColumnFunc = async() => {
                 dataType: item.dataType,
                 fieldJson: fbHump,
                 dataTypeLong: item.dataTypeLong && item.dataTypeLong.split(',')[0],
-                columnName: dbtype == 'oracle' ? item.columnName.toUpperCase() : item.columnName,
+                columnName: dbtype === 'oracle' ? item.columnName.toUpperCase() : item.columnName,
                 comment: item.columnComment,
                 require: false,
                 errorText: '',
@@ -565,7 +706,7 @@ const init = () => {
 }
 init()
 
-watch(() => route.params.id, (id) => {
+watch(() => route.params.id, () => {
   if (route.name === 'autoCodeEdit') {
     init()
   }
@@ -579,27 +720,3 @@ export default {
   name: 'AutoCode'
 }
 </script>
-
-<style scoped lang="scss">
-  .previewCodeTool {
-    display: flex;
-    align-items: center;
-    padding: 5px 0;
-  }
-.button-box {
-  padding: 10px 20px;
-  .el-button {
-    margin-right: 20px;
-    float: right;
-  }
-}
-.auto-btn-list{
-  margin-top: 16px;
-}
-.auto-icon{
-  margin-left: 6px;
-  color: #666;
-  cursor: pointer;
-}
-
-</style>

@@ -7,33 +7,22 @@
       <div class="gva-btn-list">
         <upload-common
           v-model:imageCommon="imageCommon"
-          class="upload-btn"
           @on-success="getTableData"
         />
         <upload-image
           v-model:imageUrl="imageUrl"
           :file-size="512"
           :max-w-h="1080"
-          class="upload-btn"
           @on-success="getTableData"
         />
-
-        <el-form ref="searchForm" :inline="true" :model="search">
-          <el-form-item label="">
-            <el-input v-model="search.keyword" class="keyword" placeholder="请输入文件名或备注" />
-          </el-form-item>
-
-          <el-form-item>
-            <el-button size="small" type="primary" icon="search" @click="getTableData">查询</el-button>
-          </el-form-item>
-        </el-form>
-
+        <el-input v-model="search.keyword" class="keyword" placeholder="请输入文件名或备注" />
+        <el-button type="primary" icon="search" @click="getTableData">查询</el-button>
       </div>
 
       <el-table :data="tableData">
         <el-table-column align="left" label="预览" width="100">
           <template #default="scope">
-            <CustomPic pic-type="file" :pic-src="scope.row.url" />
+            <CustomPic pic-type="file" :pic-src="scope.row.url" preview/>
           </template>
         </el-table-column>
         <el-table-column align="left" label="日期" prop="UpdatedAt" width="180">
@@ -58,8 +47,8 @@
         </el-table-column>
         <el-table-column align="left" label="操作" width="160">
           <template #default="scope">
-            <el-button size="small" icon="download" type="primary" link @click="downloadFile(scope.row)">下载</el-button>
-            <el-button size="small" icon="delete" type="primary" link @click="deleteFileFunc(scope.row)">删除</el-button>
+            <el-button icon="download" type="primary" link @click="downloadFile(scope.row)">下载</el-button>
+            <el-button icon="delete" type="primary" link @click="deleteFileFunc(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -204,7 +193,4 @@ export default {
   cursor: pointer;
 }
 
-.upload-btn + .upload-btn {
-  margin-left: 12px;
-}
 </style>
