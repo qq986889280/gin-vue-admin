@@ -85,3 +85,18 @@ func (p *PayApi) ChargeCheck(c *gin.Context) {
 	service.ServiceGroupApp.PayService.ChargeNotice()
 	response.Ok(c)
 }
+
+// @Tags Pay
+// @Summary 充值订单检查
+// @Produce  application/json
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"发送成功"}"
+// @Router /pay/ChargeCheck [post]
+func (p *PayApi) ChargeCheck2(c *gin.Context) {
+	list, err := service.ServiceGroupApp.PayService.ChargeCheck()
+	if err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	response.OkWithData(list, c)
+}

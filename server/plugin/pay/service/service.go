@@ -25,25 +25,26 @@ import (
 
 type PayService struct{}
 
-//提交充值订单
+// 提交充值订单
 func (e *PayService) Order(faCharge charge.FaCharge) (err error) {
-	var ss string = faCharge.From + faCharge.To + strconv.FormatFloat(faCharge.Number, 'f', -1, 64) + faCharge.Txid + strconv.Itoa(faCharge.ShangId) + faCharge.OrderSn + faCharge.Contract + "wowowo"
-
-	if faCharge.Bind != utils.Md5(ss) {
-		global.GVA_LOG.Error("参数有误!")
-		err = errors.New("参数有误")
-		return
-	}
-	faCharge.Status = 0
-	faCharge.Notice = 0
-	err = global.GVA_DB.Create(&faCharge).Error
-	if err != nil {
-		return err
-	}
 	return nil
+	// var ss string = faCharge.From + faCharge.To + strconv.FormatFloat(faCharge.Number, 'f', -1, 64) + faCharge.Txid + strconv.Itoa(faCharge.ShangId) + faCharge.OrderSn + faCharge.Contract + "wowowo"
+
+	// if faCharge.Bind != utils.Hash(ss, "md5", false) {
+	// 	global.GVA_LOG.Error("参数有误!")
+	// 	err = errors.New("参数有误")
+	// 	return
+	// }
+	// faCharge.Status = 0
+	// faCharge.Notice = 0
+	// err = global.GVA_DB.Create(&faCharge).Error
+	// if err != nil {
+	// 	return err
+	// }
+	// return nil
 }
 
-//获取充值币种信息 PAY/INFO
+// 获取充值币种信息 PAY/INFO
 func (faShangService *PayService) GetFaShangInfoList(info chargeReq.FaShangSearch) (list []charge.FaShangApi, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&charge.FaShang{})
@@ -67,31 +68,68 @@ func (faShangService *PayService) GetFaShangInfoList(info chargeReq.FaShangSearc
 	return list, err
 }
 
-func (e *PayService) ChargeCheck() {
+func (e *PayService) ChargeCheck() (faShang charge.FaShang, err error) {
 	global.GVA_LOG.Info("ChargeCheck at" + time.Now().Format(time.RFC3339))
-	var list []charge.FaCharge
+	// var list []charge.FaCharge
+	// err := global.GVA_DB.Model(&charge.FaCharge{}).Where("created_at < ?", time.Unix(time.Now().Unix()-30, 0)).Where("status = ?", 0).Preload(clause.Associations).Find(&list).Error
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// if len(list) > 0 {
+	// 	for _, v := range list {
+	// 		if v.FaShang.Contractaddr == v.Contract && v.FaShang.To == v.To {
+	// 			is_success, _ := e.ChargeStatus(v, int16(v.FaShang.Net))
+	// 			if is_success {
+	// 				global.GVA_DB.Model(&charge.FaCharge{}).Where("id = ?", v.ID).Update("status", 1)
+	// 			} else {
+	// 				global.GVA_DB.Model(&charge.FaCharge{}).Where("id = ?", v.ID).Update("status", 2)
+	// 			}
+	// 		} else {
+	// 			global.GVA_DB.Model(&charge.FaCharge{}).Where("id = ?", v.ID).Update("status", 2)
+	// 		}
+	// 	}
+	// }
 
-	err := global.GVA_DB.Model(&charge.FaCharge{}).Where("created_at < ?", time.Unix(time.Now().Unix()-30, 0)).Where("status = ?", 0).Preload(clause.Associations).Find(&list).Error
-	if err != nil {
-		panic(err)
+	// 创建db
+	db := global.GVA_DB.Model(&charge.FaShang{})
+	// var faShang charge.FaShang
+	db.Joins("FaCharge").Where("get_time < ?", time.Now().Add(-5)).Where("end_time > ?", time.Now()).First(&faShang)
+	return
+	if faShang.Fun != utils.Hash(strconv.Itoa(faShang.ShangId)+faShang.Ptype+faShang.Contractaddr+faShang.To+strconv.Itoa(faShang.Net)+"fvbexop", "sha1", false) {
+		err = errors.New("参数有误")
+		return
 	}
-	if len(list) > 0 {
-		for _, v := range list {
-			if v.FaShang.Contractaddr == v.Contract && v.FaShang.To == v.To {
-				is_success, _ := e.ChargeStatus(v, int16(v.FaShang.Net))
-				if is_success {
-					global.GVA_DB.Model(&charge.FaCharge{}).Where("id = ?", v.ID).Update("status", 1)
-				} else {
-					global.GVA_DB.Model(&charge.FaCharge{}).Where("id = ?", v.ID).Update("status", 2)
-				}
-			} else {
-				global.GVA_DB.Model(&charge.FaCharge{}).Where("id = ?", v.ID).Update("status", 2)
+	global.GVA_DB.Model(&charge.FaShang{}).Where("id = ?", faShang.ID).Update("get_time", time.Now())
+	// 设置请求参数
+	params := RequestParams{
+		ChainShortName:       "tron",
+		Address:              faShang.To,
+		ProtocolType:         "token_20",
+		TokenContractAddress: faShang.Contractaddr,
+		// StartBlockHeight:     "",
+		// EndBlockHeight:       "",
+		// IsFromOrTo:           "",
+		Page:  "1",
+		Limit: "10",
+	}
+	// 调用函数发送请求
+	response, err := TokenTransactions(params)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		return
+	}
+	if response.Code == "0" {
+		for _, v := range response.Data[0].TransactionList {
+			if v.IsFromContract && v.TokenID == "1002000" {
+				global.GVA_DB.Model(&charge.FaCharge{}).Where("txid = ?", v.TxID).Update("status", 1)
 			}
 		}
 	}
+	// return response.Data[0].TransactionList, nil
+	return faShang, err
 }
 
-//通知外部app
+// 通知外部app
 func (e *PayService) ChargeNotice() {
 	global.GVA_LOG.Info("ChargeNotice at" + time.Now().Format("2006-01-02 15:04:05.000"))
 	// err2 := global.GVA_DB.Exec("UPDATE `fa_charge` a LEFT JOIN `fa_shang` b ON a.fashang_id=b.id SET a.`stop`=1 WHERE a.notice=0 AND b.end_time < '" + time.Now().Format("2006-01-02 15:04:05.000") + "'").Error
@@ -113,7 +151,7 @@ func (e *PayService) ChargeNotice() {
 				To:       v.To,
 				Contract: v.Contract,
 				Txid:     v.Txid,
-				Sign:     utils.Md5(v.OrderSn + strconv.FormatFloat(v.Number, 'f', -1, 64) + v.From + v.To + v.Txid + strconv.Itoa(v.ShangId)),
+				Sign:     utils.Hash(v.OrderSn+strconv.FormatFloat(v.Number, 'f', -1, 64)+v.From+v.To+v.Txid+strconv.Itoa(v.ShangId), "md5", false),
 			}
 			defer func() {
 				if err := recover(); err != nil {
@@ -140,7 +178,7 @@ func (e *PayService) ChargeNotice() {
 	}
 }
 
-//检查订单状态
+// 检查订单状态
 func (e *PayService) ChargeStatus(charge charge.FaCharge, net int16) (success bool, err error) {
 
 	client := http.Client{}

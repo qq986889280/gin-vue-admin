@@ -56,7 +56,7 @@ func (p *UcenterApi) TokenNext(c *gin.Context, user user.FaUser) {
 	response.OkWithDetailed(model.LoginResponse{
 		User:      user,
 		Token:     token,
-		ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
+		ExpiresAt: claims.BufferTime * 1000,
 	}, "登录成功", c)
 	// return
 	// }

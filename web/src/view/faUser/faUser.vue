@@ -33,24 +33,22 @@
             <el-button size="small" type="primary" @click="onDelete">确定</el-button>
           </div>
           <template #reference>
-            <el-button icon="delete" size="small" style="margin-left: 10px;" :disabled="!multipleSelection.length" @click="deleteVisible = true">删除</el-button>
+            <el-button icon="delete" size="small" style="margin-left: 10px;" :disabled="!multipleSelection.length"
+              @click="deleteVisible = true">删除</el-button>
           </template>
         </el-popover>
       </div>
-      <el-table
-        ref="multipleTable"
-        style="width: 100%"
-        tooltip-effect="dark"
-        :data="tableData"
-        row-key="ID"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table ref="multipleTable" style="width: 100%" tooltip-effect="dark" :data="tableData" row-key="ID"
+        @selection-change="handleSelectionChange">
         <el-table-column align="left" label="按钮组" width="150" fixed="right">
           <template #default="scope">
-            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateFaUserFunc(scope.row)">变更</el-button>
+            <el-button type="primary" link icon="edit" size="small" class="table-button"
+              @click="updateFaUserFunc(scope.row)">变更</el-button>
             <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
-            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateWallet(scope.row)">账户</el-button>
-            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="opdendrawer(scope.row)">团队</el-button>
+            <el-button type="primary" link icon="edit" size="small" class="table-button"
+              @click="updateWallet(scope.row)">账户</el-button>
+            <el-button type="primary" link icon="edit" size="small" class="table-button"
+              @click="opdendrawer(scope.row)">团队</el-button>
 
           </template>
         </el-table-column>
@@ -58,85 +56,50 @@
         <el-table-column align="left" label="用户ID" prop="ID" width="120" />
         <el-table-column align="left" label="用户名" prop="username" width="120">
           <template #default="scope">
-            <div :style="[{color: scope.row.status==1?'':'red'}]">
+            <div :style="[{ color: scope.row.status == 1 ? '' : 'red' }]">
               {{ scope.row.username }}</div>
           </template>
         </el-table-column>
         <el-table-column align="left" label="状态">
           <template #default="scope">
-            <el-switch
-              v-model="scope.row.status"
-              inline-prompt
-              :active-value="1"
-              :inactive-value="2"
-              @change="()=>{switchEnable(scope.row)}"
-            />
+            <el-switch v-model="scope.row.status" inline-prompt :active-value="1" :inactive-value="2"
+              @change="() => { switchEnable(scope.row) }" />
           </template>
         </el-table-column>
         <el-table-column align="left" label="VIP">
           <template #default="scope">
-            <el-switch
-              v-model="scope.row.sw1"
-              inline-prompt
-              :active-value="1"
-              :inactive-value="2"
-              @change="()=>{switchEnable(scope.row)}"
-            />
+            <el-switch v-model="scope.row.sw1" inline-prompt :active-value="1" :inactive-value="2"
+              @change="() => { switchEnable(scope.row) }" />
           </template>
         </el-table-column>
         <el-table-column align="left" label="提现">
           <template #default="scope">
-            <el-switch
-              v-model="scope.row.sw2"
-              inline-prompt
-              :active-value="1"
-              :inactive-value="2"
-              @change="()=>{switchEnable(scope.row)}"
-            />
+            <el-switch v-model="scope.row.sw2" inline-prompt :active-value="1" :inactive-value="2"
+              @change="() => { switchEnable(scope.row) }" />
           </template>
         </el-table-column>
         <el-table-column align="left" label="闪兑">
           <template #default="scope">
-            <el-switch
-              v-model="scope.row.sw3"
-              inline-prompt
-              :active-value="1"
-              :inactive-value="2"
-              @change="()=>{switchEnable(scope.row)}"
-            />
+            <el-switch v-model="scope.row.sw3" inline-prompt :active-value="1" :inactive-value="2"
+              @change="() => { switchEnable(scope.row) }" />
           </template>
         </el-table-column>
         <el-table-column align="left" label="OTC">
           <template #default="scope">
-            <el-switch
-              v-model="scope.row.sw4"
-              inline-prompt
-              :active-value="1"
-              :inactive-value="2"
-              @change="()=>{switchEnable(scope.row)}"
-            />
+            <el-switch v-model="scope.row.sw4" inline-prompt :active-value="1" :inactive-value="2"
+              @change="() => { switchEnable(scope.row) }" />
           </template>
         </el-table-column>
         <el-table-column align="left" label="互转">
           <template #default="scope">
-            <el-switch
-              v-model="scope.row.sw5"
-              inline-prompt
-              :active-value="1"
-              :inactive-value="2"
-              @change="()=>{switchEnable(scope.row)}"
-            />
+            <el-switch v-model="scope.row.sw5" inline-prompt :active-value="1" :inactive-value="2"
+              @change="() => { switchEnable(scope.row) }" />
           </template>
         </el-table-column>
         <el-table-column align="left" label="奖励">
           <template #default="scope">
-            <el-switch
-              v-model="scope.row.sw6"
-              inline-prompt
-              :active-value="1"
-              :inactive-value="2"
-              @change="()=>{switchEnable(scope.row)}"
-            />
+            <el-switch v-model="scope.row.sw6" inline-prompt :active-value="1" :inactive-value="2"
+              @change="() => { switchEnable(scope.row) }" />
           </template>
         </el-table-column>
         <!-- <el-table-column align="left" label="日期" width="180">
@@ -208,8 +171,8 @@
         <el-table-column align="left" label="直推代数" prop="ztlevel" width="120" />
         <el-table-column align="left" label="直推人数" prop="ztnum" width="120" />
         <el-table-column align="left" label="团队人数" prop="tdnum" width="120" />
-        <el-table-column align="left" label="是否商户" prop="isAgent" width="120" />
-        <el-table-column align="left" label="是否通过谷歌验证" prop="isB" width="120" />
+        <!-- <el-table-column align="left" label="是否商户" prop="isAgent" width="120" /> -->
+        <!-- <el-table-column align="left" label="是否通过谷歌验证" prop="isB" width="120" /> -->
         <el-table-column align="left" label="次数" prop="times" width="120" />
         <el-table-column align="left" label="今日直推" prop="todayzt" width="120" />
         <el-table-column align="left" label="团队业绩" prop="tdyj" width="120" />
@@ -219,7 +182,7 @@
         <el-table-column align="left" label="身份证正面" prop="card1" width="120" />
         <el-table-column align="left" label="身份证反面" prop="card2" width="120" />
         <el-table-column align="left" label="护照" prop="card3" width="120" />
-        <el-table-column align="left" label="实名状态:0=未实名,1=已实名,2=待审核" prop="isSm" width="120" />
+        <el-table-column align="left" label="实名" prop="isSm" width="120" />
         <el-table-column align="left" label="S1账户" prop="S1" width="120" />
         <el-table-column align="left" label="S2账户" prop="S2" width="120" />
         <el-table-column align="left" label="累计1" prop="B1total" width="120" />
@@ -253,15 +216,9 @@
 
       </el-table>
       <div class="gva-pagination">
-        <el-pagination
-          layout="total, sizes, prev, pager, next, jumper"
-          :current-page="page"
-          :page-size="pageSize"
-          :page-sizes="[10, 30, 50, 100]"
-          :total="total"
-          @current-change="handleCurrentChange"
-          @size-change="handleSizeChange"
-        />
+        <el-pagination layout="total, sizes, prev, pager, next, jumper" :current-page="page" :page-size="pageSize"
+          :page-sizes="[10, 30, 50, 100]" :total="total" @current-change="handleCurrentChange"
+          @size-change="handleSizeChange" />
       </div>
     </div>
 
@@ -271,8 +228,8 @@
           <el-input v-model="formData2.username" disabled />
         </el-form-item>
         <el-form-item label="钱包类型" prop="ptype">
-          <el-select v-model="formData2.ptype" clearable placeholder="请选择" @clear="()=>{formData2.ptype=undefined}">
-            <el-option v-for="(item,key) in walletOptions" :key="key" :label="item.label" :value="item.value" />
+          <el-select v-model="formData2.ptype" clearable placeholder="请选择" @clear="() => { formData2.ptype = undefined }">
+            <el-option v-for="(item, key) in walletOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="操作金额" prop="price">
@@ -327,7 +284,8 @@
         </el-form-item>
         <el-form-item label="头像">
           <div style="display:inline-block" @click="openHeaderChange">
-            <img v-if="formData.avatar" class="header-img-box" :src="(formData.avatar && formData.avatar.slice(0, 4) !== 'http')?path+formData.avatar:formData.avatar">
+            <img v-if="formData.avatar" class="header-img-box"
+              :src="(formData.avatar && formData.avatar.slice(0, 4) !== 'http') ? path + formData.avatar : formData.avatar">
             <div v-else class="header-img-box">从媒体库选择</div>
           </div>
         </el-form-item>
@@ -392,12 +350,7 @@
           <el-input-number v-model="formData.wall10" style="width:100%" :precision="2" :clearable="true" />
         </el-form-item> -->
         <el-form-item label="状态" prop="disabled">
-          <el-switch
-            v-model="formData.status"
-            inline-prompt
-            :active-value="1"
-            :inactive-value="2"
-          />
+          <el-switch v-model="formData.status" inline-prompt :active-value="1" :inactive-value="2" />
         </el-form-item>
         <!-- <el-form-item label="VIP" prop="disabled">
           <el-switch
@@ -781,7 +734,7 @@ const handleCurrentChange = (val) => {
 }
 
 // 查询
-const getTableData = async() => {
+const getTableData = async () => {
   const table = await getFaUserList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
     tableData.value = table.data.list
@@ -796,7 +749,7 @@ getTableData()
 // ============== 表格控制部分结束 ===============
 
 // 获取需要的字典 可能为空 按需保留
-const setOptions = async() => {
+const setOptions = async () => {
   walletOptions.value = await getDictFunc('wallet')
 }
 
@@ -825,7 +778,7 @@ const deleteRow = (row) => {
 const deleteVisible = ref(false)
 
 // 多选删除
-const onDelete = async() => {
+const onDelete = async () => {
   const ids = []
   if (multipleSelection.value.length === 0) {
     ElMessage({
@@ -835,9 +788,9 @@ const onDelete = async() => {
     return
   }
   multipleSelection.value &&
-        multipleSelection.value.map(item => {
-          ids.push(item.ID)
-        })
+    multipleSelection.value.map(item => {
+      ids.push(item.ID)
+    })
   const res = await deleteFaUserByIds({ ids })
   if (res.code === 0) {
     ElMessage({
@@ -856,7 +809,7 @@ const onDelete = async() => {
 const type = ref('')
 
 // 更新行
-const updateFaUserFunc = async(row) => {
+const updateFaUserFunc = async (row) => {
   const res = await findFaUser({ ID: row.ID })
   type.value = 'update'
   if (res.code === 0) {
@@ -866,7 +819,7 @@ const updateFaUserFunc = async(row) => {
 }
 
 // 删除行
-const deleteFaUserFunc = async(row) => {
+const deleteFaUserFunc = async (row) => {
   const res = await deleteFaUser({ ID: row.ID })
   if (res.code === 0) {
     ElMessage({
@@ -880,7 +833,7 @@ const deleteFaUserFunc = async(row) => {
   }
 }
 // 账户
-const updateWallet = async(row) => {
+const updateWallet = async (row) => {
   formData2.value.userid = row.ID
   formData2.value.username = row.username
   dialogFormVisible2.value = true
@@ -989,32 +942,32 @@ const closeDialog = () => {
   }
 }
 // 弹窗确定
-const enterDialog = async() => {
-     elFormRef.value?.validate(async(valid) => {
-       if (!valid) return
-       let res
-       switch (type.value) {
-         case 'create':
-           res = await createFaUser(formData.value)
-           break
-         case 'update':
-           res = await updateFaUser(formData.value)
-           break
-         default:
-           res = await createFaUser(formData.value)
-           break
-       }
-       if (res.code === 0) {
-         ElMessage({
-           type: 'success',
-           message: '创建/更改成功'
-         })
-         closeDialog()
-         getTableData()
-       }
-     })
+const enterDialog = async () => {
+  elFormRef.value?.validate(async (valid) => {
+    if (!valid) return
+    let res
+    switch (type.value) {
+      case 'create':
+        res = await createFaUser(formData.value)
+        break
+      case 'update':
+        res = await updateFaUser(formData.value)
+        break
+      default:
+        res = await createFaUser(formData.value)
+        break
+    }
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '创建/更改成功'
+      })
+      closeDialog()
+      getTableData()
+    }
+  })
 }
-const enterDialog2 = async() => {
+const enterDialog2 = async () => {
   const res = await userCharge(formData2.value)
   if (res.code === 0) {
     ElMessage({
@@ -1025,7 +978,7 @@ const enterDialog2 = async() => {
     getTableData()
   }
 }
-const switchEnable = async(row) => {
+const switchEnable = async (row) => {
   formData.value = JSON.parse(JSON.stringify(row))
   await nextTick()
   const req = {
@@ -1045,7 +998,7 @@ const openHeaderChange = () => {
 </script>
 
 <style>
- .header-img-box {
+.header-img-box {
   width: 200px;
   height: 200px;
   border: 1px dashed #ccc;
@@ -1054,22 +1007,25 @@ const openHeaderChange = () => {
   line-height: 200px;
   cursor: pointer;
 }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409eff;
-  }
-  .avatar-uploader-icon {
-    border: 1px dashed #d9d9d9 !important;
-    border-radius: 6px;
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
+
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+
+.avatar-uploader-icon {
+  border: 1px dashed #d9d9d9 !important;
+  border-radius: 6px;
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
 </style>

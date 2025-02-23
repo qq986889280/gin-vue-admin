@@ -19,6 +19,7 @@ type FaShang struct {
 	Net          int       `json:"net" form:"net" gorm:"column:net;comment:区块链;size:3;"`
 	Fun          string    `json:"fun" form:"fun" gorm:"column:fun;comment:fun;size:200;"`
 	EndTime      time.Time // 到期时间
+	GetTime      time.Time // 同步时间
 }
 
 type FaShangApi struct {

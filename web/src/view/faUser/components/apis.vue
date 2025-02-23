@@ -5,18 +5,9 @@
       <el-button class="fl-right" size="small" type="primary" @click="authApiEnter">确 定</el-button>
     </div>
     <div class="tree-content">
-      <el-tree
-        ref="apiTree"
-        :data="apiTreeData"
-        :default-checked-keys="apiTreeIds"
-        :props="apiDefaultProps"
-        default-expand-all
-        highlight-current
-        node-key="onlyId"
-        show-checkbox
-        :filter-node-method="filterNode"
-        @check="nodeChange"
-      />
+      <el-tree ref="apiTree" :data="apiTreeData" :default-checked-keys="apiTreeIds" :props="apiDefaultProps"
+        default-expand-all highlight-current node-key="onlyId" show-checkbox :filter-node-method="filterNode"
+        @check="nodeChange" />
     </div>
   </div>
 </template>
@@ -33,7 +24,7 @@ import { ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 const props = defineProps({
   row: {
-    default: function() {
+    default: function () {
       return {}
     },
     type: Object
@@ -48,7 +39,7 @@ const filterText = ref('')
 const apiTreeData = ref([])
 const apiTreeIds = ref([])
 const activeUserId = ref('')
-const init = async() => {
+const init = async () => {
   const res2 = await getAllApis()
   const apis = res2.data.apis
 
@@ -78,14 +69,14 @@ const enterAndNext = () => {
 const buildApiTree = (apis) => {
   const apiObj = {}
   apis &&
-        apis.forEach(item => {
-          item.onlyId = 'p:' + item.path + 'm:' + item.method
-          if (Object.prototype.hasOwnProperty.call(apiObj, item.apiGroup)) {
-            apiObj[item.apiGroup].push(item)
-          } else {
-            Object.assign(apiObj, { [item.apiGroup]: [item] })
-          }
-        })
+    apis.forEach(item => {
+      item.onlyId = 'p:' + item.path + 'm:' + item.method
+      if (Object.prototype.hasOwnProperty.call(apiObj, item.apiGroup)) {
+        apiObj[item.apiGroup].push(item)
+      } else {
+        Object.assign(apiObj, { [item.apiGroup]: [item] })
+      }
+    })
   const apiTree = []
   for (const key in apiObj) {
     const treeNode = {
@@ -100,7 +91,7 @@ const buildApiTree = (apis) => {
 
 // 关联关系确定
 const apiTree = ref(null)
-const authApiEnter = async() => {
+const authApiEnter = async () => {
   const checkArr = apiTree.value.getCheckedNodes(true)
   var casbinInfos = []
   checkArr && checkArr.forEach(item => {
@@ -135,5 +126,5 @@ watch(filterText, (val) => {
 </script>
 
 <style lang="scss" scoped>
-@import "@/style/button.scss";
+@import "@/style/main.scss";
 </style>

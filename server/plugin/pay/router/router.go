@@ -15,7 +15,8 @@ func (s *PayRouter) InitPayRouter(Router *gin.RouterGroup) {
 		plugRouter.POST("order", PayApi.Order)
 		plugRouter.POST("info", PayApi.GetFaShangList)
 		plugRouter.POST("check", PayApi.PayCheck)
-		plugRouter.POST("chargecheck", PayApi.ChargeCheck)
+		plugRouter.GET("chargecheck", PayApi.ChargeCheck)
+		plugRouter.GET("chargecheck2", PayApi.ChargeCheck2)
 	}
 	// var option []cron.Option
 	// if global.GVA_CONFIG.Timer.WithSeconds {

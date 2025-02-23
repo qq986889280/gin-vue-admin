@@ -7,16 +7,9 @@
       <!-- :default-checked-keys="menuTreeIds" -->
       <!-- show-checkbox -->
       <!-- node-key="id" -->
-      <el-tree
-        ref="menuTree"
-        :data="menuTreeData"
-        :props="menuDefaultProps"
-        default-expand-all
-        highlight-current
-        :filter-node-method="filterNode"
-        @check="nodeChange"
-      >
-        <template #default="{ node , data }">
+      <el-tree ref="menuTree" :data="menuTreeData" :props="menuDefaultProps" default-expand-all highlight-current
+        :filter-node-method="filterNode" @check="nodeChange">
+        <template #default="{ node, data }">
           <span class="custom-tree-node">
             <span>{{ node.ID }}</span>
             <span>{{ data.username }} 个人业绩：{{ data.tdyj }} 团队业绩：{{ data.tdyj }}</span>
@@ -39,7 +32,7 @@ import { ElMessage } from 'element-plus'
 
 const props = defineProps({
   row: {
-    default: function() {
+    default: function () {
       return {}
     },
     type: Object
@@ -53,12 +46,12 @@ const menuTreeIds = ref([])
 const needConfirm = ref(false)
 const menuDefaultProps = ref({
   children: 'children',
-  label: function(data) {
+  label: function (data) {
     return data.meta.title
   }
 })
 
-const init = async() => {
+const init = async () => {
   // 获取所有菜单树
   const res = await userTeam({ id: props.row.ID })
   menuTreeData.value = res.data
@@ -76,7 +69,7 @@ const init = async() => {
 
 init()
 
-const setDefault = async(data) => {
+const setDefault = async (data) => {
   const res = await updateAuthority({ authorityId: props.row.authorityId, AuthorityName: props.row.authorityName, parentId: props.row.parentId, defaultRouter: data.name })
   if (res.code === 0) {
     ElMessage({ type: 'success', message: '设置成功' })
@@ -92,7 +85,7 @@ const enterAndNext = () => {
 }
 // 关联树 确认方法
 const menuTree = ref(null)
-const relation = async() => {
+const relation = async () => {
   const checkArr = menuTree.value.getCheckedNodes(false, true)
   const res = await addMenuAuthority({
     menus: checkArr,
@@ -114,7 +107,7 @@ const btnData = ref([])
 const multipleSelection = ref([])
 const btnTableRef = ref()
 let menuID = ''
-const OpenBtn = async(data) => {
+const OpenBtn = async (data) => {
   menuID = data.ID
   const res = await getAuthorityBtnApi({ menuID: menuID, authorityId: props.row.authorityId })
   if (res.code === 0) {
@@ -144,7 +137,7 @@ const openDialog = (data) => {
 const closeDialog = () => {
   btnVisible.value = false
 }
-const enterDialog = async() => {
+const enterDialog = async () => {
   const selected = multipleSelection.value.map(item => item.ID)
   const res = await setAuthorityBtnApi({
     menuID,
@@ -177,9 +170,10 @@ export default {
 </script>
 
 <style lang="scss" scope>
-@import "@/style/button.scss";
-.custom-tree-node{
-  span+span{
+@import "@/style/main.scss";
+
+.custom-tree-node {
+  span+span {
     margin-left: 12px;
   }
 }

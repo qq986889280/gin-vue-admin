@@ -4,22 +4,7 @@ aliyun-oss:
   access-key-secret: yourAccessKeySecret
   bucket-name: yourBucketName
   bucket-url: yourBucketUrl
-  base-path: yourBasePath
-autocode:
-  transfer-restart: true
-  root: /Users/tian/Documents/go/gin-vue-admin
-  server: /server
-  server-api: /api/v1/%s
-  server-plug: /plugin/%s
-  server-initialize: /initialize
-  server-model: /model/%s
-  server-request: /model/%s/request/
-  server-router: /router/%s
-  server-service: /service/%s
-  web: /web/src
-  web-api: /api
-  web-form: /view
-  web-table: /view
+  base-path: yourBasePath 
 aws-s3:
   bucket: xxxxx-10005608
   region: ap-shanghai
@@ -33,28 +18,10 @@ aws-s3:
 baosms:
   username: xhxc
   password: 670dacedf04a5c0866b044b0b299d93a
-  sign: 【新华信诚】
-captcha:
-  key-long: 4
-  img-width: 240
-  img-height: 80
+  sign: 【新华信诚】 
 cc:
   curl: https://api.tiankongapi.com/api.php/provide/vod/?ac=detail
-cors:
-  mode: whitelist
-  whitelist:
-  - allow-origin: example1.com
-    allow-methods: GET, POST
-    allow-headers: content-type
-    expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers,
-      Content-Type
-    allow-credentials: true
-  - allow-origin: example2.com
-    allow-methods: GET, POST
-    allow-headers: content-type
-    expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers,
-      Content-Type
-    allow-credentials: true 
+ 
 email:
   to: 986889280@qq.com
   port: 465
@@ -75,15 +42,11 @@ jwt:
   signing-key: 4a685742-d3a2-4200-a8d0-aaafa018e52a
   expires-time: 7d
   buffer-time: 1d
-  issuer: qmPlus
-local:
-  path: uploads/file
-  store-path: uploads/file
-
+  issuer: qmPlus  
 # system configuration
 system:
   env: public # Change to "develop" to skip authentication for development mode
-  addr: 8888
+  addr: 39666
   db-type: mysql
   oss-type: local # 控制oss选择走本地还是 七牛等其他仓 自行增加其他oss仓可以在 server/utils/upload/upload.go 中 NewOss函数配置
   use-redis: false # 使用redis
@@ -118,21 +81,7 @@ mysql:
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: error
-  log-zap: false
-oracle:
-  path: ""
-  port: ""
-  config: ""
-  db-name: ""
-  username: ""
-  password: ""
-  prefix: ""
-  singular: false
-  engine: ""
-  max-idle-conns: 0
-  max-open-conns: 0
-  log-mode: ""
-  log-zap: false
+  log-zap: false 
 pgsql:
   path: ""
   port: ""
@@ -231,7 +180,7 @@ qiniu:
 redis:
   db: 0
   addr: 127.0.0.1:6379
-  password: ""
+  password: "123456"
 tencent-cos:
   bucket: xxxxx-10005608
   region: ap-shanghai
